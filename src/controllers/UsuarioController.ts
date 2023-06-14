@@ -2,11 +2,12 @@ import { Request, Response } from 'express'
 import { criarConexao } from '../database'
 import { Usuario } from '../models/Usuario'
 
-async function getUsuario(req: Request, res: Response) {
+async function getUsuarios(req: Request, res: Response) {
     try {
         const connection = await criarConexao()
 
-        const [resultado] = await connection.query('SELECT * FROM usuarios')
+        const consulta = 'SELECT * FROM usuarios'
+        const [resultado] = await connection.query(consulta)
 
         connection.end()
 
@@ -16,72 +17,75 @@ async function getUsuario(req: Request, res: Response) {
     }
 }
 
-async function postUsuario(req: Request, res: Response) {
-    const { name, password } = req.body
+async function criarUsuarios(req: Request, res: Response) {
+    const { nome, senha } = req.body
 
-    if (!name || !password) {
+    if (!nome || !senha) {
         return res.status(400).json({ error: 'data is missing' })
     }
 
-    const encryptedPassword = await bcrypt.hash(password, 8)
-
-    const user = new User({
-        _id: uuid(),
-        name,
-        password: encryptedPassword,
-        additionDate: new Date(),
-    })
+    const usuario: Usuario = {
+        nome,
+        senha,
+    }
 
     try {
-        await user.save()
+        const connection = await criarConexao()
 
-        return res.status(201).json({ message: 'User added succesfully!' })
-    } catch (err) {
-        res.status(400).json({ error: err })
+        const consulta = 'INSERT INTO usuarios (nome, senha) VALUES (?,?)'
+        await connection.query(consulta, [usuario.nome, usuario.senha])
+
+        connection.end()
+
+        res.status(201).json({ message: 'User added succesfully!' })
+    } catch (error) {
+        return res.status(500).json({ message: error })
     }
 }
 
-async function puUsuario(
-    req: Request<{ id?: UpdateWithAggregationPipeline }>,
-    res: Response
-) {
-    const { name, password } = req.body
+async function atualizarUsuarios(req: Request, res: Response) {
+    const { nome, senha } = req.body
     const { id } = req.params
 
-    if (!name && !password) {
+    if (!nome && !senha) {
         return res.status(400).json({ error: 'You must enter a new data' })
     }
 
-    const filter = { _id: id }
-    const updateDoc = {
-        $set: {
-            name,
-            password,
-        },
+    const usuario: Usuario = {
+        nome,
+        senha,
     }
 
     try {
-        await User.updateOne(filter, updateDoc)
+        const connection = await criarConexao()
 
-        return res.status(200).json({ message: 'User updated succesfully!' })
-    } catch (err) {
-        res.status(500).json({ error: err })
+        const consulta = 'UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?'
+        await connection.query(consulta, [usuario.nome, usuario.senha, id])
+
+        connection.end()
+
+        res.status(200).json({ message: 'User updated succesfully!' })
+    } catch (error) {
+        return res.status(500).json({ message: error })
     }
 }
 
-async function deleteUsuario(
-    req: Request<{ id?: UpdateWithAggregationPipeline }>,
-    res: Response
-) {
+async function apagarUsuarios(req: Request, res: Response) {
     const { id } = req.params
-    const filter = { _id: id }
 
     try {
-        await User.deleteOne(filter)
-        return res.status(200).json({ message: 'User removed succesfully!' })
-    } catch (err) {
-        return res.status(500).json({ error: err })
+        const connection = await criarConexao()
+
+        const consulta = 'DELETE FROM usuarios WHERE id = ?'
+
+        await connection.query(consulta, [id])
+
+        connection.end()
+
+        res.status(200).json({ message: 'User removed succesfully!' })
+    } catch (error) {
+        return res.status(500).json({ message: error })
     }
 }
 
-export { getUsuario, postUsuario, puUsuario, deleteUsuario }
+export { getUsuarios, criarUsuarios, atualizarUsuarios, apagarUsuarios }

@@ -1,0 +1,77 @@
+GET http://localhost:3000/api/usuarios HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3000/api/usuarios HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Kevin",
+    "senha": "003"
+}
+###
+PUT http://localhost:3000/api/usuarios/10 HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Louis",
+    "senha": "001"
+}
+###
+DELETE http://localhost:3000/api/usuarios/9 HTTP/1.1
+content-type: application/json
+
+################################
+
+GET http://localhost:3000/api/emprestimos HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3000/api/emprestimos HTTP/1.1
+content-type: application/json
+
+{
+    "dataDeEmprestimo": "2000-09-15",
+    "dataDeDevolucao": "2000-10-28",
+    "status": 1
+}
+###
+PUT http://localhost:3000/api/emprestimos/1 HTTP/1.1
+content-type: application/json
+
+{
+    "dataDeEmprestimo": "1972-09-15",
+    "dataDeDevolucao": "2020-10-28",
+    "status": 0
+}
+###
+DELETE http://localhost:3000/api/emprestimos/6 HTTP/1.1
+content-type: application/json
+
+################################
+
+
+GET http://localhost:3000/api/itens HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:3000/api/itens HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "toddy",
+    "disponivel": "100",
+    "dataDeAquisicao": "2023-06-12"
+}
+###
+PUT http://localhost:3000/api/itens/5 HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "toddy 2",
+    "disponivel": "100",
+    "dataDeAquisicao": "2023-06-12"
+}
+###
+DELETE http://localhost:3000/api/itens/4 HTTP/1.1
+content-type: application/json
