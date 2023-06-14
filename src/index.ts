@@ -17,12 +17,20 @@ app.use(express.json())
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 
+
 app.get('/', (req, res) => {
-    res.send('Hola Adriano!')
-})
-app.get('/inicio', (req, res) => {
     res.render('index')
 })
+app.get('/emprestimos', (req, res) => {
+    res.render('pages/emprestimos')
+})
+app.get('/itens', (req, res) => {
+    res.render('pages/itens')
+})
+app.get('/usuarios', (req, res) => {
+    res.render('pages/usuarios')
+})
+
 app.get('/users', async (req, res) => {
     try {
         connectToDatabase()
