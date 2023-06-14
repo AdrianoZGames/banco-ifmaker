@@ -1,0 +1,21 @@
+body{
+    background-color: rgba(8, 1, 63, 0.701);
+}
+.criando{
+    padding-top: 45px;
+display: flex;
+align-items: center;  
+flex-direction: column;
+}
+form{ 
+display: flex;
+align-items: center;  
+flex-direction: column;
+
+}
+
+.text{
+    font-size: medium;
+}
+
+
