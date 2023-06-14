@@ -56,6 +56,19 @@ app.get('/api/itens', async (req, res) => {
         return res.status(500).json({ message: error })
     }
 })
+app.get('/api/emprestimos', async (req, res) => {
+    try {
+        const connection = await criarConexao()
+
+        const [rows] = await connection.query('SELECT * FROM emprestimos')
+
+        connection.end()
+
+        res.status(200).json(rows)
+    } catch (error) {
+        return res.status(500).json({ message: error })
+    }
+})
 
 app.listen(port, () => {
     console.log(
