@@ -7,17 +7,72 @@
         <title>Ínicio</title>
         <link rel="stylesheet" href="/css/index.css" />
         <link rel="stylesheet" href="/css/globalStyles.css" />
-        <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/512/5968/5968313.png" type="image/x-icon">
+        <link
+            rel="shortcut icon"
+            href="https://cdn-icons-png.flaticon.com/512/5968/5968313.png"
+            type="image/x-icon"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
     </head>
     <body>
-        <h1>Tela de início</h1>
+        <header class="cabecalho">
+            <div class="logo">LOGO</div>
 
-        <ul>
-            <li><a href="/itens">Itens</a></li>
-            <li><a href="/emprestimos">Emprestímos</a></li>
-            <li><a href="/usuarios">Usuários</a></li>
-        </ul>
+            <div class="title">Tela de início</div>
 
+            <div class="container-usuario">
+                <div class="imagem-do-usuario"></div>
+                <div class="nome-do-usuario">Joe Dawn</div>
+            </div>
+        </header>
+
+        <section class="container-services">
+            <div class="card" id="item">
+                <div class="title">Itens</div>
+                <div class="icon"><ion-icon name="cube"></ion-icon></div>
+                <div class="description">
+                    Descubra uma variedade de objetos e recursos disponíveis
+                    para empréstimo. Encontre desde ferramentas úteis até itens
+                    de lazer e entretenimento, prontos para serem compartilhados
+                    com a comunidade.
+                </div>
+            </div>
+            <div class="card" id="emprestimo">
+                <div class="title">Emprestímos</div>
+                <div class="icon"><ion-icon name="arrow-redo"></ion-icon></div>
+                <div class="description">
+                    Faça uso da plataforma de empréstimos para solicitar e
+                    emprestar itens de outros usuários. Desfrute da conveniência
+                    de compartilhar recursos e economizar dinheiro, enquanto
+                    promove a sustentabilidade e reduz o desperdício.
+                </div>
+            </div>
+
+            <div class="card" id="usuario">
+                <div class="title">Usuários</div>
+                <div class="icon"><ion-icon name="person"></ion-icon></div>
+                <div class="description">
+                    Conecte-se com pessoas confiáveis e generosas dispostas a
+                    emprestar seus itens. Descubra uma comunidade ativa de
+                    usuários empréstimos, onde você pode encontrar não apenas
+                    recursos, mas também amizades e conexões valiosas.
+                </div>
+            </div>
+        </section>
+
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
         <script src="/JS/index.js"></script>
     </body>
 </html>

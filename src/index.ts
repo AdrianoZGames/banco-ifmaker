@@ -21,11 +21,11 @@ app.set('views', __dirname + '/views')
 app.get('/', (req: Request, res: Response) => {
     res.render('index')
 })
-app.get('/emprestimos', (req: Request, res: Response) => {
-    res.render('pages/emprestimos')
-})
 app.get('/itens', (req: Request, res: Response) => {
     res.render('pages/itens')
+})
+app.get('/emprestimos', (req: Request, res: Response) => {
+    res.render('pages/emprestimos')
 })
 app.get('/usuarios', (req: Request, res: Response) => {
     res.render('pages/usuarios')
