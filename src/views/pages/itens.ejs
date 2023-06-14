@@ -9,6 +9,33 @@
         <link rel="stylesheet" href="/css/globalStyles.css">
     </head>
     <body>
-        Itens
+        <h1>Listando Itens</h1>
+        <table class="tabela" id="tabelaitens">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    
+                    <th>nome</th>
+                    <th>disponivel</th>
+                    <th>datadeaquisicao</th>
+                </tr>
+            </thead>
+        </table>
+        <form id="cadastro" class="cadastro">
+            <label for="id">Id</label>
+            <input type="text" name="id" id="id">
+
+            <label for="nome">Nome</label>
+            <input type="text" name="nome" id="nome">
+
+            <label for="disponivel">Disponivel</label>
+            <input type="text" name="disponivel" id="disponivel">
+
+            <label for="datadeaquisicao">Data de Aquisição</label>
+            <input type="text" name="datadeaquisicao" id="datadeaquisicao">
+        </form>
+        <button type="submit">Enviar</button>
+        
+        <script src="/JS/itens.js"></script>
     </body>
 </html>
