@@ -4,7 +4,7 @@ import cors from 'cors'
 
 config()
 
-import { createConnection } from './database'
+import { criarConexao } from './database'
 
 const app = express()
 const port = 3000
@@ -32,7 +32,7 @@ app.get('/usuarios', (req, res) => {
 
 app.get('/api/usuarios', async (req, res) => {
     try {
-        const connection = await createConnection()
+        const connection = await criarConexao()
 
         const [rows] = await connection.query('SELECT * FROM usuarios')
 
