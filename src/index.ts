@@ -4,7 +4,7 @@ import cors from 'cors'
 
 config()
 
-import { conection, connectToDatabase } from './database'
+import { createConnection } from './database'
 
 const app = express()
 const port = 3000
@@ -16,7 +16,6 @@ app.use(express.json())
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
-
 
 app.get('/', (req, res) => {
     res.render('index')
@@ -31,25 +30,15 @@ app.get('/usuarios', (req, res) => {
     res.render('pages/usuarios')
 })
 
-app.get('/users', async (req, res) => {
+app.get('/api/usuarios', async (req, res) => {
     try {
-        connectToDatabase()
+        const connection = await createConnection()
 
-        conection.query('SELECT * FROM pessoa', (error, results) => {
-            if (error) {
-                console.error('Erro ao executar a consulta:', error)
-                return
-            }
+        const [rows] = await connection.query('SELECT * FROM usuarios')
 
-            res.status(200).json(results)
+        connection.end()
 
-            conection.end((err) => {
-                if (err) {
-                    console.error('Erro ao fechar a conexão:', err)
-                    return
-                }
-            })
-        })
+        res.status(200).json(rows)
     } catch (error) {
         return res.status(500).json({ message: error })
     }
