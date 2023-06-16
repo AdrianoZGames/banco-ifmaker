@@ -1,0 +1,171 @@
+body {
+    background-image: url('https://img.youtube.com/vi/BJ-YGgKZXcc/maxresdefault.jpg');
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+
+    min-height: 100vh;
+    padding-top: 100px;
+}
+.cabecalho {
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 60px;
+    background-color: #e55b1a;
+}
+.cabecalho .title {
+    font-size: 24px;
+
+    font-weight: bold;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
+}
+.cabecalho .logo {
+    padding-left: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
+    width: 300px;
+}
+.cabecalho .container-usuario {
+    display: flex;
+    justify-content: end;
+    margin-right: 20px;
+    width: 300px;
+
+    font-weight: bold;
+    font-size: 20px;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
+}
+.cabecalho .container-usuario .login {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #efd9ca;
+    background-color: #ad4514;
+    font-size: inherit;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.container-tabela {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    width: 80%;
+    padding: 20px;
+    background-color: #652608;
+}
+.container-tabela .titulo-tabela {
+    color: white;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    color: white;
+    margin: 0 auto;
+}
+
+th,
+td {
+    max-width: 200px;
+    padding: 10px;
+    text-align: left;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+thead {
+    background-color: #702e0e;
+}
+
+th {
+    font-weight: bold;
+    background-color: #8c3c18;
+}
+
+tbody tr {
+    background-color: #b84712;
+}
+tbody tr:nth-child(even) {
+    background-color: #8c3c18;
+}
+
+tbody tr:hover {
+    background-color: #c4551f;
+    cursor: pointer;
+}
+
+button.btn-editar {
+    padding: 5px 10px;
+    background-color: #2dca1e;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.btn-excluir {
+    padding: 5px 10px;
+    background-color: #d02b2b;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.btn-emprestar {
+    padding: 5px 10px;
+    background-color: #2780b8;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.btn-emprestar.indisponivel {
+    padding: 5px 10px;
+    background-color: #2780b87a;
+    pointer-events: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button.btn-editar:hover {
+    background-color: #32f021;
+}
+button.btn-excluir:hover {
+    background-color: #e52e2e;
+}
+button.btn-emprestar:hover {
+    background-color: #199ef0;
+}

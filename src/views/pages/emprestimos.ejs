@@ -20,6 +20,113 @@
         />
     </head>
     <body>
-        Emprestímos
+        <header class="cabecalho">
+            <div class="logo">Banco IFmaker</div>
+
+            <div class="title">Empréstimos</div>
+
+            <div class="container-usuario">
+                <div class="nome-do-usuario" style="display: none">
+                    Joe Dawn
+                </div>
+                <button class="login">Login</button>
+            </div>
+        </header>
+
+        <section class="container-tabela">
+            <h1 class="titulo-tabela">
+                Tabela de itens para serem emprestados
+            </h1>
+
+            <table id="tabela-emprestimos">
+                <thead>
+                    <tr>
+                        <th>Nome do Item</th>
+                        <th>Status</th>
+                        <th>Data de Aquisição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+
+            <h1 class="titulo-tabela" style="margin-top: 100px">
+                Tabela de itens que foram emprestados
+            </h1>
+
+            <table id="tabela-emprestimos">
+                <thead>
+                    <tr>
+                        <th>Nome do Item</th>
+                        <th>Pessoa que Emprestou</th>
+                        <th>Data de Empréstimo</th>
+                        <th>Data de Devolução</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Item 1</td>
+                        <td>Pessoa A</td>
+                        <td>01/06/2023</td>
+                        <td>10/06/2023</td>
+                        <td>Emprestado</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Item 2</td>
+                        <td>Pessoa B</td>
+                        <td>03/06/2023</td>
+                        <td>08/06/2023</td>
+                        <td>Emprestado</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Item 3</td>
+                        <td>Pessoa C</td>
+                        <td>05/06/2023</td>
+                        <td>12/06/2023</td>
+                        <td>Devolvido</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Item 4</td>
+                        <td>Pessoa D</td>
+                        <td>07/06/2023</td>
+                        <td>14/06/2023</td>
+                        <td>Emprestado</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Item 5</td>
+                        <td>Pessoa E</td>
+                        <td>09/06/2023</td>
+                        <td>16/06/2023</td>
+                        <td>Devolvido</td>
+                        <td>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <script src="/JS/emprestimos.js"></script>
     </body>
 </html>

@@ -18,13 +18,22 @@ async function getEmprestimos(req: Request, res: Response) {
 }
 
 async function criarEmprestimos(req: Request, res: Response) {
-    const { dataDeEmprestimo, dataDeDevolucao, status } = req.body
+    const { idUsuario, idItem, dataDeEmprestimo, dataDeDevolucao, status } =
+        req.body
 
-    if (!dataDeEmprestimo || !dataDeDevolucao || !status) {
+    if (
+        !idUsuario ||
+        !idItem ||
+        !dataDeEmprestimo ||
+        !dataDeDevolucao ||
+        !status
+    ) {
         return res.status(400).json({ error: 'data is missing' })
     }
 
     const emprestimo: Emprestimo = {
+        idUsuario,
+        idItem,
         dataDeEmprestimo,
         dataDeDevolucao,
         status,
@@ -34,8 +43,10 @@ async function criarEmprestimos(req: Request, res: Response) {
         const connection = await criarConexao()
 
         const consulta =
-            'INSERT INTO emprestimos (`data-de-emprestimo`, `data-de-devolucao`, status) VALUES (?,?,?)'
+            'INSERT INTO emprestimos (id_usuario, id_item, `data-de-emprestimo`, `data-de-devolucao`, status) VALUES (?,?,?,?,?)'
         await connection.query(consulta, [
+            emprestimo.idUsuario,
+            emprestimo.idItem,
             emprestimo.dataDeEmprestimo,
             emprestimo.dataDeDevolucao,
             emprestimo.status,
@@ -57,7 +68,7 @@ async function atualizarEmprestimos(req: Request, res: Response) {
         return res.status(400).json({ error: 'You must enter a new data' })
     }
 
-    const emprestimo: Emprestimo = {
+    const emprestimo: Omit<Emprestimo, 'idUsuario' | 'idItem'> = {
         dataDeEmprestimo,
         dataDeDevolucao,
         status,

@@ -31,6 +31,8 @@ POST http://localhost:3000/api/emprestimos HTTP/1.1
 content-type: application/json
 
 {
+    "idUsuario": "1",
+    "idItem": "1",
     "dataDeEmprestimo": "2000-09-15",
     "dataDeDevolucao": "2000-10-28",
     "status": 1
