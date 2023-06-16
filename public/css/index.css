@@ -18,16 +18,52 @@ body {
     align-items: center;
 
     height: 60px;
-    background-color: orange;
+    background-color: #e55b1a;
 }
 .cabecalho .title {
     font-size: 24px;
+
+    font-weight: bold;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
 }
 .cabecalho .logo {
-    margin-left: 20px;
+    padding-left: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
+    width: 300px;
 }
 .cabecalho .container-usuario {
+    display: flex;
+    justify-content: end;
     margin-right: 20px;
+    width: 300px;
+
+    font-weight: bold;
+    font-size: 20px;
+    color: #efd9ca;
+    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
+        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
+}
+.cabecalho .container-usuario .login {
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #efd9ca;
+    background-color: #ad4514;
+    font-size: inherit;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
 }
 .container-services {
     display: grid;
@@ -49,7 +85,7 @@ body {
 
     color: var(--color-white);
     text-decoration: none;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.3);
 
     display: flex;
     flex-direction: column;
@@ -77,4 +113,20 @@ body {
     margin-right: 20px;
     margin-left: 20px;
     margin-bottom: 40px;
+}
+
+@media (max-width: 1360px) {
+    .container-services .card {
+        width: 300px;
+        height: 500px;
+    }
+    .container-services .card .title {
+        font-size: 30px;
+    }
+    .container-services .card .icon {
+        font-size: 60px;
+    }
+    .container-services .card .description {
+        font-size: 16px;
+    }
 }
