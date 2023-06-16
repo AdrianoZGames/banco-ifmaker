@@ -9,9 +9,8 @@ async function inicia() {
     itensData = [...itens]
 
     criarListagemDinamica()
+    eventosNosButoes()
 }
-
-inicia()
 
 // Função que será acionada pelo evento de clique no botão "Editar"
 function editarItem() {
@@ -29,8 +28,8 @@ function excluirItem() {
     alert('Excluir item')
 }
 
-// Adiciona os eventos de clique aos botões
-window.addEventListener('load', () => {
+function eventosNosButoes() {
+    // Adiciona os eventos de clique aos botões
     const btnEmprestar = document.querySelectorAll('.btn-emprestar')
     const btnEditar = document.querySelectorAll('.btn-editar')
     const btnExcluir = document.querySelectorAll('.btn-excluir')
@@ -45,7 +44,7 @@ window.addEventListener('load', () => {
     btnExcluir.forEach((btn) => {
         btn.addEventListener('click', excluirItem)
     })
-})
+}
 
 // Função para criar a listagem dinâmica
 function criarListagemDinamica() {
@@ -75,12 +74,21 @@ function criarListagemDinamica() {
 
         const acoesTd = document.createElement('td')
         const button = document.createElement('button')
-        button.className =
-            item.disponivel > 0 ? 'btn-emprestar' : 'btn-emprestar indisponivel'
-        button.textContent = 'Emprestar'
+
+        if (item.disponivel > 0) {
+            button.className = item.disponivel = 'btn-emprestar'
+            button.textContent = 'Emprestar'
+        } else {
+            button.className = 'btn-emprestar indisponivel'
+            button.textContent = 'Emprestar'
+            button.disabled = true
+        }
+
         acoesTd.appendChild(button)
         tr.appendChild(acoesTd)
 
         tbody.appendChild(tr)
     })
 }
+
+inicia()
