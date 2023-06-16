@@ -19,7 +19,7 @@ function editarItem() {
 }
 function emprestarItem() {
     // Lógica para editar o item selecionado
-    alert('Emprestar item')
+    abrirModal()
 }
 
 // Função que será acionada pelo evento de clique no botão "Excluir"
@@ -90,5 +90,43 @@ function criarListagemDinamica() {
         tbody.appendChild(tr)
     })
 }
+
+// Função para abrir o modal
+function abrirModal() {
+    const modal = document.getElementById('modal')
+    modal.style.display = 'block'
+}
+
+// Função para fechar o modal
+function fecharModal() {
+    const modal = document.getElementById('modal')
+    modal.style.display = 'none'
+}
+
+// Função para salvar as informações
+function salvarInformacoes() {
+    const dataEmprestimo = document.getElementById('dataEmprestimo').value
+    const dataDevolucao = document.getElementById('dataDevolucao').value
+
+    // Faça o que for necessário com as informações (enviar para a API, etc.)
+
+    // Fechar o modal após salvar as informações
+    fecharModal()
+}
+
+// Event listeners
+document.getElementById('btnAbrirModal').addEventListener('click', abrirModal)
+document
+    .getElementById('btnSalvar')
+    .addEventListener('click', salvarInformacoes)
+document
+    .getElementsByClassName('fechar')[0]
+    .addEventListener('click', fecharModal)
+window.addEventListener('click', function (event) {
+    const modal = document.getElementById('modal')
+    if (event.target == modal) {
+        fecharModal()
+    }
+})
 
 inicia()
