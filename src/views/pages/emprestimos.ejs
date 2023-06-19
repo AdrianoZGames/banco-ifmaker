@@ -25,12 +25,7 @@
 
             <div class="title">Empréstimos</div>
 
-            <div class="container-usuario">
-                <div class="nome-do-usuario" style="display: none">
-                    Joe Dawn
-                </div>
-                <button class="login">Login</button>
-            </div>
+            <div class="container-usuario"></div>
         </header>
 
         <section class="container-tabela">
@@ -38,7 +33,7 @@
                 Tabela de itens para serem emprestados
             </h1>
 
-            <table id="tabela-emprestimos">
+            <table id="tabela-itens">
                 <thead>
                     <tr>
                         <th>Nome do Item</th>
@@ -47,10 +42,24 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
+                <tbody></tbody>
             </table>
+
+            <div class="tabela-centralizada" style="display: none">
+                <h1 class="titulo-tabela" style="margin-top: 100px">
+                    Tabela de usuários
+                </h1>
+                <table id="tabela-usuarios">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome do Usuário</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
 
             <h1 class="titulo-tabela" style="margin-top: 100px">
                 Tabela de itens que foram emprestados
@@ -127,22 +136,42 @@
             </table>
         </section>
 
-        <!-- Botão para abrir o modal -->
-<button id="btnAbrirModal">Abrir Modal</button>
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="fechar">&times;</span>
+                <h2>Inserir Informações</h2>
+                <label for="dataEmprestimo">Data de Empréstimo:</label>
+                <input type="date" id="dataEmprestimo" />
+                <label for="dataDevolucao">Data de Devolução:</label>
+                <input type="date" id="dataDevolucao" />
+                <button id="btnSalvar">Salvar</button>
+            </div>
+        </div>
 
-<!-- Modal -->
-<div id="modal" class="modal">
-  <div class="modal-content">
-    <span class="fechar">&times;</span>
-    <h2>Inserir Informações</h2>
-    <label for="dataEmprestimo">Data de Empréstimo:</label>
-    <input type="date" id="dataEmprestimo">
-    <label for="dataDevolucao">Data de Devolução:</label>
-    <input type="date" id="dataDevolucao">
-    <button id="btnSalvar">Salvar</button>
-  </div>
-</div>
+        <!-- Modal de edição -->
+        <div id="modalEdicao" class="modal">
+            <div class="modal-content">
+                <span class="fechar">&times;</span>
+                <h2>Editar Informações</h2>
+                <label for="dataEmprestimoEdicao">Data de Empréstimo:</label>
+                <input type="date" id="dataEmprestimoEdicao" />
+                <label for="dataDevolucaoEdicao">Data de Devolução:</label>
+                <input type="date" id="dataDevolucaoEdicao" />
+                <button id="btnSalvarEdicao">Salvar</button>
+            </div>
+        </div>
 
+        <!-- Modal de exclusão -->
+        <div id="modalExclusao" class="modal">
+            <div class="modal-content">
+                <span class="fechar">&times;</span>
+                <h2>Confirmar Exclusão</h2>
+                <p>Tem certeza de que deseja excluir este item?</p>
+                <button id="btnCancelarExclusao">Cancelar</button>
+                <button id="btnConfirmarExclusao">Confirmar</button>
+            </div>
+        </div>
 
         <script src="/JS/emprestimos.js"></script>
     </body>
