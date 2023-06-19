@@ -7,17 +7,23 @@ fetch("api/usuarios")
     for(let item of data){
         let tr = document.createElement('tr')
 
-        let tdId = document.createElement('td')
-        tdId.textContent = item.id
-        let tdNome = document.createElement('td')
-        tdNome.textContent = item.nome
-        let tdIdade = document.createElement('td')
-        tdIdade.textContent = item.idade
+        let tdusuario = document.createElement('td')
+        tdusuario.textContent = item.usuario
+        let tdsenha = document.createElement('td')
+        tdsenha.textContent = item.senha
+        let tdemail = document.createElement('td')
+        tdemail.textContent = item.email
+        let tdcpf = document.createElement('td')
+        tdcpf.textContent = item.cpf
+        let tdtelefone = document.createElement('td')
+        tdtelefone.textContent = item.telefone
+        
 
-        tr.appendChild(tdId)
-        tr.appendChild(tdNome)
-        tr.appendChild(tdIdade)
-
+        tr.appendChild(tdusuario)
+        tr.appendChild(tdsenha)
+        tr.appendChild(tdemail)
+        tr.appendChild(tdcpf)
+        tr.appendChild(tdtelefone)
 
         //Adicionando um botão de excluir por linha da tabela
         let aExcluir = document.createElement('a')
@@ -27,7 +33,7 @@ fetch("api/usuarios")
         //Adicionando uma ação quando clicar no botão
         aExcluir.addEventListener('click',(event)=>{
             event.preventDefault();
-            fetch("http://localhost:3000"+'/'+item.id,{
+            fetch("api/usuarios"+'/'+item.id,{
                 method:'DELETE'
             })
             .finally(()=>{
@@ -48,9 +54,11 @@ fetch("api/usuarios")
             event.preventDefault()
             // O que precisamos fazer aqui?/
 
-            document.querySelector("#id").value = item.id
-            document.querySelector("#nome").value = item.nome
-            document.querySelector("#idade").value = item.idade
+            document.querySelector("#usuario").value = item.usuario
+            document.querySelector("#senha").value = item.senha
+            document.querySelector("#email").value = item.email
+            document.querySelector("#cpf").value = item.cpf
+            document.querySelector("#telefone").value = item.telefone
             document.querySelector('button').textContent ="Alterar"
 
             let form = document.querySelector('#form-cadastro')
