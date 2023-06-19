@@ -1,12 +1,25 @@
+const logo = document.querySelector('.cabecalho .logo')
+
+logo.addEventListener('click', () => {
+    window.location = '/'
+})
+
 let itensData = []
+let usuariosData = []
+let emprestimosData = []
 
 async function inicia() {
-    // const idUsuarioConectado = getCookie("user")
-
     const respostaItens = await fetch('/api/itens')
+    const respostaUsuarios = await fetch('/api/usuarios')
+    const respostaEmprestimos = await fetch('/api/emprestimos')
+
     const itens = await respostaItens.json()
+    const usuarios = await respostaUsuarios.json()
+    const emprestimos = await respostaEmprestimos.json()
 
     itensData = [...itens]
+    usuariosData = [...usuarios]
+    emprestimosData = [...emprestimos]
 
     criarListagemDinamica()
     eventosNosButoes()
@@ -15,7 +28,7 @@ async function inicia() {
 // Função que será acionada pelo evento de clique no botão "Editar"
 function editarItem() {
     // Lógica para editar o item selecionado
-    alert('Editar item')
+    abrirModalEdicao()
 }
 function emprestarItem() {
     // Lógica para editar o item selecionado
@@ -25,7 +38,7 @@ function emprestarItem() {
 // Função que será acionada pelo evento de clique no botão "Excluir"
 function excluirItem() {
     // Lógica para excluir o item selecionado
-    alert('Excluir item')
+    abrirModalExclusao()
 }
 
 function eventosNosButoes() {
@@ -48,11 +61,19 @@ function eventosNosButoes() {
 
 // Função para criar a listagem dinâmica
 function criarListagemDinamica() {
-    const tabela = document.getElementById('tabela-emprestimos')
-    const tbody = tabela.getElementsByTagName('tbody')[0]
+    const tabelaEmprestimos = document.getElementById('tabela-emprestimos')
+    const tbodyEmprestimos = tabelaEmprestimos.getElementsByTagName('tbody')[0]
+
+    const tabelaItens = document.getElementById('tabela-itens')
+    const tbodyItens = tabelaItens.getElementsByTagName('tbody')[0]
+
+    const tabelaUsuarios = document.getElementById('tabela-usuarios')
+    const tbodyUsuarios = tabelaUsuarios.getElementsByTagName('tbody')[0]
 
     // Limpar o conteúdo atual da tabela
-    tbody.innerHTML = ''
+    tbodyEmprestimos.innerHTML = ''
+    tbodyItens.innerHTML = ''
+    tbodyUsuarios.innerHTML = ''
 
     // Iterar sobre os dados da API e criar as linhas da tabela
     itensData.forEach((item) => {
@@ -87,7 +108,7 @@ function criarListagemDinamica() {
         acoesTd.appendChild(button)
         tr.appendChild(acoesTd)
 
-        tbody.appendChild(tr)
+        tbodyItens.appendChild(tr)
     })
 }
 
@@ -115,7 +136,6 @@ function salvarInformacoes() {
 }
 
 // Event listeners
-document.getElementById('btnAbrirModal').addEventListener('click', abrirModal)
 document
     .getElementById('btnSalvar')
     .addEventListener('click', salvarInformacoes)
@@ -127,6 +147,102 @@ window.addEventListener('click', function (event) {
     if (event.target == modal) {
         fecharModal()
     }
+})
+
+// Dados de exemplo para edição
+const dadosEdicao = {
+    dataEmprestimo: '2023-06-12',
+    dataDevolucao: '2023-06-20',
+}
+
+// Função para abrir o modal de edição
+function abrirModalEdicao() {
+    const modalEdicao = document.getElementById('modalEdicao')
+    const dataEmprestimoEdicao = document.getElementById('dataEmprestimoEdicao')
+    const dataDevolucaoEdicao = document.getElementById('dataDevolucaoEdicao')
+
+    // Preencher os campos com os valores existentes
+    dataEmprestimoEdicao.value = dadosEdicao.dataEmprestimo
+    dataDevolucaoEdicao.value = dadosEdicao.dataDevolucao
+
+    modalEdicao.style.display = 'block'
+}
+
+// Função para fechar o modal de edição
+function fecharModalEdicao() {
+    const modalEdicao = document.getElementById('modalEdicao')
+    modalEdicao.style.display = 'none'
+}
+
+// Função para salvar as informações editadas
+function salvarInformacoesEdicao() {
+    const dataEmprestimoEdicao = document.getElementById(
+        'dataEmprestimoEdicao'
+    ).value
+    const dataDevolucaoEdicao = document.getElementById(
+        'dataDevolucaoEdicao'
+    ).value
+
+    // Faça o que for necessário com as informações editadas (enviar para a API, etc.)
+
+    // Fechar o modal após salvar as informações
+    fecharModalEdicao()
+}
+
+// Event listeners
+document
+    .getElementById('btnSalvarEdicao')
+    .addEventListener('click', salvarInformacoesEdicao)
+document
+    .getElementsByClassName('fechar')[1]
+    .addEventListener('click', fecharModalEdicao)
+window.addEventListener('click', function (event) {
+    const modalEdicao = document.getElementById('modalEdicao')
+    if (event.target == modalEdicao) {
+        fecharModalEdicao()
+    }
+})
+
+// Função para abrir o modal de exclusão
+function abrirModalExclusao() {
+    const modalExclusao = document.getElementById('modalExclusao')
+    modalExclusao.style.display = 'block'
+}
+
+// Função para fechar o modal de exclusão
+function fecharModalExclusao() {
+    const modalExclusao = document.getElementById('modalExclusao')
+    modalExclusao.style.display = 'none'
+}
+
+// Função para confirmar a exclusão
+function confirmarExclusao() {
+    // Lógica para a exclusão do item (enviar para a API, etc.)
+
+    // Fechar o modal após a confirmação da exclusão
+    fecharModalExclusao()
+}
+
+// Event listeners
+document
+    .getElementById('btnCancelarExclusao')
+    .addEventListener('click', fecharModalExclusao)
+document
+    .getElementById('btnConfirmarExclusao')
+    .addEventListener('click', confirmarExclusao)
+document
+    .getElementsByClassName('fechar')[2]
+    .addEventListener('click', fecharModalExclusao)
+window.addEventListener('click', function (event) {
+    const modalExclusao = document.getElementById('modalExclusao')
+    if (event.target == modalExclusao) {
+        fecharModalExclusao()
+    }
+})
+
+document.addEventListener('click', function () {
+    const tabelaUsuarios = document.querySelector('.tabela-centralizada')
+    tabelaUsuarios.style.display = 'block'
 })
 
 inicia()

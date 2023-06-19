@@ -1,0 +1,37 @@
+h1 {
+    color: #333; /* Define a cor do texto */
+    font-size: 24px; /* Define o tamanho da fonte */
+    text-align: center; /* Centraliza o texto */
+    margin-top: 20px; /* Define uma margem superior */
+}
+/*estilizar tabela table*/
+.tabela {
+    width: 100%; /* Define a largura da tabela */
+    border-collapse: collapse; /* Colapsa as bordas das células */
+}
+
+.tabela th {
+    background-color: #eee; /* Define a cor de fundo do cabeçalho da tabela */
+    padding: 10px; /* Define o preenchimento interno das células */
+}
+
+.tabela td {
+    border: 1px solid #ccc; /* Define a borda das células */
+    padding: 10px; /* Define o preenchimento interno das células */
+}
+
+/*parte do casdastro(o form)*/
+.cadastro {
+    margin-top: 20px; /* Define uma margem superior */
+}
+
+.cadastro label {
+    display: block; /* Faz os rótulos ocuparem uma linha inteira */
+    margin-top: 10px; /* Define uma margem superior */
+}
+
+.cadastro input {
+    width: 100%; /* Define a largura dos campos de entrada */
+    padding: 5px; /* Define o preenchimento interno dos campos de entrada */
+    margin-top: 5px; /* Define uma margem superior */
+}
