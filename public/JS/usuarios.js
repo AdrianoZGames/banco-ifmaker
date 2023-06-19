@@ -1,68 +1,124 @@
-fetch(api/usuarios)
+fetch("api/usuarios")
 
-let usuario = document.querySelector('#usuario')
-let labelu = document.querySelector('#labelu')
-let valideu = false
+. então ( resposta => resposta . json ( ) )
+. então ( ( dados ) => {
+    // let pessoas = document.querySelector('#pessoas');
+    let  tabela  =  document . querySelector ( "#tabela" )
+    for ( deixe  o item  de  dados ) {
+        deixe  tr  =  documento . criarElemento ( 'tr' )
 
-let senha = document.querySelector('#senha')
-let labels = document.querySelector('#labels')
-let valides = false
+        deixe  tdId  =  documento . criarElemento ( 'td' )
+        tdId . textContent  =  item . eu ia
+        deixe  tdNome  =  documento . criarElemento ( 'td' )
+        tdNome . textContent  =  item . nome
+        let  tdIdade  =  document . criarElemento ( 'td' )
+        tdIdade . textContent  =  item . idade
 
-let erro = document.querySelector('#erro')
-let sucesso = document.querySelector('#sucesso')
+        tr . appendChild ( tdId )
+        tr . appendChild ( tdNome )
+        tr . appendChild ( tdIdade )
 
 
-//se estar certo o usuario e senha, a quantidade as mesmas
-usuario.addEventListener('keyup', ()=>{
-    if(usuario.value.length <= 5){
-        labelu.setAttribute('style', 'color:red')
-        labelu.innerHTML = 'usuario *Insera no minimo 6 caracteres'
-        usuario.setAttribute('style', 'border-color:red')
-        valideu = false
-    }else{
-        labelu.setAttribute('style', 'color:green')
-        labelu.innerHTML = 'usuario'
-        usuario.setAttribute('style', 'border-color:green')
-        valideu = true
+        //Adicionando um botão de excluir por linha da tabela
+        let  aExcluir  =  document . criarElemento ( 'a' )
+        aExcluir . textContent  =  "Excluir"
+        aExcluir . classList . add ( "excluir" )
+
+        //Adicionando uma ação ao clicar no botão
+        aExcluir . addEventListener ( 'clique' , ( evento ) => {
+            evento . prevenirPadrão ( ) ;
+            fetch ( "http://localhost:3000" + '/' + item . id , {
+                método : 'DELETE'
+            } )
+            . finalmente ( ( ) => {
+                // window.location.reload();
+            } )
+        } )
+
+        let  tdBotaoExcluir  =  document . criarElemento ( 'td' )
+        tdBotaoExcluir . appendChild ( aExcluir )
+
+
+        let  tdBotaoAlterar  =  document . criarElemento ( 'td' )
+        let  aAlterar  =  document . criarElemento ( 'a' )
+        aAlterar . classList . add ( "alterar" )
+        aAlterar . textContent = "Alterar"
+
+        aAlterar . addEventListener ( 'clique' , ( evento ) => {
+            evento . prevenirPadrão ( )
+            // O que precisamos fazer aqui?/
+
+            documento . consultaSeletor ( "#id" ) . valor  =  artigo . eu ia
+            documento . querySelector ( "#nome" ) . valor  =  artigo . nome
+            documento . querySelector ( "#idade" ) . valor  =  artigo . idade
+            documento . querySelector ( 'botão' ) . textContent  = "Alterar"
+
+            deixe  formulário  =  documento . querySelector ( '#form-cadastro' )
+            forma . addEventListener ( 'enviar' , ( evento ) => {
+                evento . prevenirPadrão ( ) ;
+                deixe  id  =  documento . querySelector ( '#id' ) . valor
+                deixe  nome  =  documento . querySelector ( '#nome' ) . valor
+                let  idade  =  document . querySelector ( '#idade' ) . valor
+                let  pessoaUpdate  =  {
+                    identificação ,
+                    nome ,
+                    idade
+                }
+                fetch ( "http://localhost:3000" + "/" + item . id , {
+                    método : "PUT" ,
+                    cabeçalhos : {
+                        'Tipo de conteúdo' : 'aplicativo/json'
+                    } ,
+                    corpo : JSON . stringify ( pessoaUpdate )
+                } )
+                . finalmente ( ( ) => {
+                    // window.location.reload();
+                } )
+                
+            } )
+        } )
+
+        tdBotaoAlterar . appendChild ( aAlterar )
+
+
+        tr . appendChild ( tdBotaoAlterar )
+        tr . appendChild ( tdBotaoExcluir )
+
+        tabela . appendChild ( tr )
     }
-})
+} )
+deixe  formulário  =  documento . querySelector ( "#formulário-cadastro" ) ;
 
-senha.addEventListener('keyup', ()=>{
-    if(senha.value.length <= 8){
-        labels.setAttribute('style', 'color:red')
-        labels.innerHTML = 'senha *Insera no minimo 9 caracteres'
-        senha.setAttribute('style', 'border-color:red')
-        valideu = false
-    }else{
-        labels.setAttribute('style', 'color:green')
-        labels.innerHTML = 'senha'
-        senha.setAttribute('style', 'border-color:green')
-        valideu = true
-    }
-})
+forma . addEventListener ( 'enviar' , ( evento ) => {
+evento . prevenirPadrão ( ) ;
 
-
-function cadastrar(){
-    if(valides && valideu){
-        let listau = JSON.parse(localStorage.getItem('listau') || '[]')
-        listau.push({
-            usuario: usuario.value,
-            senha: senha.value
-        })
-        localStorage.setItem('listau', JSON.stringify(listau))
-
-        sucesso.setAttribute('style', 'display: block')
-        sucesso.innerHTML = '<strong>Cadastrando usuario...</strong>'
-        erro.setAttribute('style', 'display: none')
-        erro.innerHTML = ''
-
-    }else{
-        erro.setAttribute('style', 'display: block')
-        erro.innerHTML = '<strong>Preencha todos os campos</strong>'
-        sucesso.innerHTML = ''
-        sucesso.setAttribute('style', 'display: none')
-    }
+if ( document . querySelector ( 'button' ) . textContent  == "Alterar" ) {
+    retornar
 }
+deixe  id  =  documento . consultaSeletor ( "#id" ) . valor ;
+deixe  nome  =  documento . querySelector ( "#nome" ) . valor ;
+let  idade  =  document . querySelector ( "#idade" ) . valor ;
+deixa  pessoa  =  {
+    identificação ,
+    nome ,
+    idade
+}
+//console.log(pessoa)
+buscar ( "http://localhost:3000" , {
+    //Método
+    método : 'POST' ,
+    //Tipo de dado
+    cabeçalhos : {
+        'Tipo de conteúdo' : 'aplicativo/json'
+    } ,
+    //Quais são os dados
+    corpo : JSON . stringify ( pessoa )
+} )
+. então ( resposta => resposta . json ( ) )
+} ) ;
+
+
+
 
 
 

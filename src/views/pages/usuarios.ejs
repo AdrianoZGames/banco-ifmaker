@@ -23,26 +23,31 @@
         <div>
             <div class="a">
                 <div class="as">
-                    <h1>Formulario</h1>
-                    <div id="erro"></div>
-                    <div id="sucesso"></div>
-        
-                    <div class="oi">
-                        <input type="text" id="usuario" placeholder="">
-                        <label id="labelu" for="usuario">Usuario</label>
-                    </div>
-                    <div class="oi">
-                        <input type="password" id="senha" placeholder="">
-                        <label id="labels" for="senha">Senha</label>
-                    </div>
-        
-                    <div class="botao">
-                        <button onclick="cadastrar()">cadastrar</button>
-                    </div>
+                        <h1>Formulario</h1>
+                        <div id="erro"></div>
+
+                        <div id="sucesso"></div>
+                            <form id="form-cadastro" class="form-cadastro">
+                                <div class="oi">
+                                    <label  for="usuario">Usuario</label>
+                                    <input id="labelu" type="text" id="usuario" >
+                                    
+                                </div>
+                                <div class="oi">
+                                    <label  for="senha">Senha</label>
+                                    <input id="labels" type="password" id="senha">
+                                    
+                                </div>
                     
+                                <div class="botao" type =" submit " >
+                                    <button>Cadastrar</button>
+                                </div>
+                            </form>
         
                 </div>
-            <h1>Listando usuarios</h1>
-        </div>
+                        <div>
+                            <h1 class="lista">Listando usuarios</h1>
+                        </div>
+         </div>
     </body>
 </html>
