@@ -121,7 +121,86 @@ button:hover{
 
 }
 
-.labelu{
-    
-}
 
+
+
+
+
+
+
+
+.form-cadastro{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+}
+.tabela{
+    border: 1px solid black;
+    min-width: 50vw;
+}
+.tabela thead{
+    background-color: #01318ac1;
+    color: white;
+}
+.tabela tbody{
+    background-color: #eee;
+}
+.tabela, td, th{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 15px 30px;
+}
+tr:nth-child(even){
+    background-color: #f7cdcd73;
+}
+body{
+    font-size: 2em;
+    background-color: rgb(246, 246, 246);
+    color: rgb(12, 12, 12);
+}
+input{
+    border: 1px solid #f0f0f0;
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 15px;
+}
+input:hover{
+    border-color: rgba(106, 106, 208, 0.383);
+}
+input:focus-visible{
+    outline-color: rgba(18, 30, 161, 0.711);
+}
+button{
+    background-color: #01318ac1;
+    color: white;
+    font-size: 0.8em;
+    /* margin: 0px 15px; */
+    padding: 15px 30px;
+}
+form{
+    border: 1px solid #f0f0f0;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 15px;
+}
+.excluir{
+    background-color: rgba(216, 12, 12, 0.896);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px;
+
+}
+.excluir:hover{
+    background-color: rgba(216, 12, 12, 0.991);
+    cursor:pointer;
+}
+.alterar{
+    background-color: #01318ac1;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 3px;
+}
+.alterar:hover{
+    background-color: #01318aa4;
+    cursor:pointer;
+}
