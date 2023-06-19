@@ -18,6 +18,11 @@
             href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
             rel="stylesheet"
         />
+        <script
+            src="https://code.jquery.com/jquery-3.7.0.min.js"
+            integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g="
+            crossorigin="anonymous"
+        ></script>
     </head>
     <body>
         <header class="cabecalho">
@@ -36,6 +41,7 @@
             <table id="tabela-itens">
                 <thead>
                     <tr>
+                        <th>ID</th>
                         <th>Nome do Item</th>
                         <th>Status</th>
                         <th>Data de Aquisição</th>
@@ -45,9 +51,9 @@
                 <tbody></tbody>
             </table>
 
-            <div class="tabela-centralizada" style="display: none">
+            <div class="tabela-centralizada" style="display: none;">
                 <div class="tabela-centralizada-camada">
-                    <h1 class="titulo-tabela" style="margin-top: 100px">
+                    <h1 class="titulo-tabela">
                         Selecione um usuário para fazer o empréstimo
                     </h1>
                     <table id="tabela-usuarios">
@@ -55,6 +61,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nome do Usuário</th>
+                                <th>Email</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -70,8 +79,9 @@
             <table id="tabela-emprestimos">
                 <thead>
                     <tr>
-                        <th>Nome do Item</th>
-                        <th>Pessoa que Emprestou</th>
+                        <th>ID Empréstimo</th>
+                        <th>ID do item</th>
+                        <th>ID da Pessoa que Emprestou</th>
                         <th>Data de Empréstimo</th>
                         <th>Data de Devolução</th>
                         <th>Status</th>
@@ -138,8 +148,8 @@
             </table>
         </section>
 
-        <!-- Modal -->
-        <div id="modal" class="modal">
+        <!-- Modal Empréstimo -->
+        <div id="modal-emprestimo" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="fechar">&times;</span>
                 <h2>Inserir Informações</h2>
@@ -152,7 +162,7 @@
         </div>
 
         <!-- Modal de edição -->
-        <div id="modalEdicao" class="modal">
+        <div id="modalEdicao" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="fechar">&times;</span>
                 <h2>Editar Informações</h2>
@@ -165,7 +175,7 @@
         </div>
 
         <!-- Modal de exclusão -->
-        <div id="modalExclusao" class="modal">
+        <div id="modalExclusao" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="fechar">&times;</span>
                 <h2>Confirmar Exclusão</h2>

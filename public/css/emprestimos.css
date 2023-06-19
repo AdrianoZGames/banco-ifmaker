@@ -149,7 +149,6 @@ button.btn-emprestar:hover {
 }
 
 .modal {
-    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -214,10 +213,14 @@ button:hover {
     left: 0;
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    
 }
 .tabela-centralizada-camada {
     width: 80%;
     margin: 0 auto;
+    background-color: #652608;
+    padding: 20px;
 }
