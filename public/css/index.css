@@ -40,31 +40,9 @@ body {
     width: 300px;
 }
 .cabecalho .container-usuario {
-    display: flex;
-    justify-content: end;
-    margin-right: 20px;
     width: 300px;
+}
 
-    font-weight: bold;
-    font-size: 20px;
-    color: #efd9ca;
-    text-shadow: 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
-        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000,
-        0 0 2px #000000, 0 0 2px #000000, 0 0 2px #000000;
-}
-.cabecalho .container-usuario .login {
-    width: 100px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #efd9ca;
-    background-color: #ad4514;
-    font-size: inherit;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
 .container-services {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
