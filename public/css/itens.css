@@ -54,4 +54,37 @@ body {
   button:hover {
     background-color: #555;
   }
-  
+
+
+/* js*/
+
+/* Estilo para a tabela */
+#tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#tabela th, #tabela td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+#tabela th {
+  background-color: #eee;
+}
+
+/* Estilo para os botões */
+.excluir, .alterar {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+.excluir:hover, .alterar:hover {
+  background-color: #555;
+}

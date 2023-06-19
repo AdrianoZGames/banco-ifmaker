@@ -216,11 +216,15 @@ button:hover {
     justify-content: center;
     padding-top: 100px;
     padding-bottom: 100px;
-    
 }
 .tabela-centralizada-camada {
     width: 80%;
     margin: 0 auto;
     background-color: #652608;
     padding: 20px;
+}
+
+#btnStatusDevolvido.ativo,
+#btnStatusPendente.ativo {
+    background-color: #e55b1a;
 }

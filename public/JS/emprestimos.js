@@ -8,8 +8,10 @@ let itensData = []
 let usuariosData = []
 let emprestimosData = []
 let stageData = {
-    item: null,
-    user: null,
+    itemId: null,
+    userId: null,
+    emprestimoId: null,
+    emprestimoSituacao: null,
 }
 
 async function inicia() {
@@ -29,39 +31,11 @@ async function inicia() {
 }
 
 // Função que será acionada pelo evento de clique no botão "Editar"
-function editarItem() {
-    // Lógica para editar o item selecionado
-    abrirModalEdicao()
-}
+
 function emprestarItem(value) {
     // Lógica para editar o item selecionado
-    stageData.item = value.id
+    stageData.itemId = value
     $('.tabela-centralizada').toggle()
-    abrirModalEmprestimo()
-}
-
-// Função que será acionada pelo evento de clique no botão "Excluir"
-function excluirItem() {
-    // Lógica para excluir o item selecionado
-    abrirModalExclusao()
-}
-
-function eventosNosButoes() {
-    // Adiciona os eventos de clique aos botões
-    const btnEmprestar = document.querySelectorAll('.btn-emprestar')
-    const btnEditar = document.querySelectorAll('.btn-editar')
-    const btnExcluir = document.querySelectorAll('.btn-excluir')
-
-    btnEmprestar.forEach((btn) => {
-        btn.addEventListener('click', emprestarItem)
-    })
-    btnEditar.forEach((btn) => {
-        btn.addEventListener('click', editarItem)
-    })
-
-    btnExcluir.forEach((btn) => {
-        btn.addEventListener('click', excluirItem)
-    })
 }
 
 // Função para criar a listagem dinâmica
@@ -109,7 +83,7 @@ function criarListagemDinamica() {
             button.className = item.disponivel = 'btn-emprestar'
             button.textContent = 'Emprestar'
             button.addEventListener('click', () => {
-                emprestarItem(item)
+                emprestarItem(item.id)
             })
         } else {
             button.className = 'btn-emprestar indisponivel'
@@ -153,7 +127,7 @@ function criarListagemDinamica() {
         button.className = 'btn-selecionar'
         button.textContent = 'Selecionar'
         button.addEventListener('click', () => {
-            stageData.user = item.id
+            stageData.userId = item.id
             abrirModalEmprestimo()
         })
 
@@ -185,7 +159,7 @@ function criarListagemDinamica() {
         tr.appendChild(dataDeEmprestimoTd)
 
         const dataDeDevolucaoTd = document.createElement('td')
-        const dataDeDevolucao = new Date(item['data-de-emprestimo'])
+        const dataDeDevolucao = new Date(item['data-de-devolucao'])
         dataDeDevolucaoTd.textContent = dataDeDevolucao.toLocaleDateString()
         tr.appendChild(dataDeDevolucaoTd)
 
@@ -202,8 +176,18 @@ function criarListagemDinamica() {
         buttonEditar.textContent = 'Editar'
         buttonExcluir.textContent = 'Excluir'
 
+        const dataCompletaEmprestimo = item['data-de-emprestimo']
+        const dataCompletaDevolucao = item['data-de-devolucao']
+        const dataFormatadaEmprestimo = new Date(dataCompletaEmprestimo)
+            .toISOString()
+            .split('T')[0]
+
+        const dataFormatadaDevolucao = new Date(dataCompletaDevolucao)
+            .toISOString()
+            .split('T')[0]
+
         buttonEditar.addEventListener('click', () => {
-            abrirModalEmprestimo(item.id)
+            abrirModalEdicao(dataFormatadaEmprestimo, dataFormatadaDevolucao)
         })
         buttonExcluir.addEventListener('click', () => {
             abrirModalExclusao(item.id)
@@ -218,29 +202,48 @@ function criarListagemDinamica() {
     })
 }
 
-// Função para abrir o modal
+// Função para abrir o modal Empréstimos
 function abrirModalEmprestimo() {
-    const modal = document.getElementById('modal-emprestimo')
-    $(modal).show()
+    $('.tabela-centralizada').toggle()
+    $('#modal-emprestimo').show()
 }
 
-// Função para fechar o modal
+// Função para fechar o modal Empréstimos
 function fecharModal() {
-    const modal = document.getElementById('modal-emprestimo')
-    $(modal).hide()
-    stageData.item = null
-    stageData.id = null
+    $('#modal-emprestimo').hide()
+    stageData.itemId = null
+    stageData.userId = null
+    document.getElementById('dataEmprestimo').value = null
+    document.getElementById('dataDevolucao').value = null
 }
 
 // Função para salvar as informações
-function salvarInformacoes() {
+async function salvarInformacoes() {
     const dataEmprestimo = document.getElementById('dataEmprestimo').value
     const dataDevolucao = document.getElementById('dataDevolucao').value
 
-    // Faça o que for necessário com as informações (enviar para a API, etc.)
+    let emprestimo = {
+        idUsuario: stageData.userId,
+        idItem: stageData.itemId,
+        dataDeEmprestimo: dataEmprestimo,
+        dataDeDevolucao: dataDevolucao,
+        status: 0,
+    }
 
-    // Fechar o modal após salvar as informações
-    fecharModal()
+    const resposta = await fetch('/api/emprestimos', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emprestimo),
+    })
+    if (resposta.status == 201) {
+        window.location.reload()
+    }
+    if (resposta.status != 201) {
+        alert('Internal Error!')
+    }
 }
 
 // Event listeners
@@ -251,35 +254,27 @@ document
     .getElementsByClassName('fechar')[0]
     .addEventListener('click', fecharModal)
 window.addEventListener('click', function (event) {
-    const modal = document.getElementById('modal')
-    if (event.target == modal) {
+    const modalEmprestimo = document.getElementById('modal-emprestimo')
+    if (event.target == modalEmprestimo) {
         fecharModal()
     }
 })
 
-// Dados de exemplo para edição
-const dadosEdicao = {
-    dataEmprestimo: '2023-06-12',
-    dataDevolucao: '2023-06-20',
-}
-
 // Função para abrir o modal de edição
-function abrirModalEdicao() {
-    const modalEdicao = document.getElementById('modalEdicao')
+function abrirModalEdicao(dataEmprestimo, dataDevolucao) {
     const dataEmprestimoEdicao = document.getElementById('dataEmprestimoEdicao')
     const dataDevolucaoEdicao = document.getElementById('dataDevolucaoEdicao')
 
     // Preencher os campos com os valores existentes
-    dataEmprestimoEdicao.value = dadosEdicao.dataEmprestimo
-    dataDevolucaoEdicao.value = dadosEdicao.dataDevolucao
+    dataEmprestimoEdicao.value = dataEmprestimo
+    dataDevolucaoEdicao.value = dataDevolucao
 
-    modalEdicao.style.display = 'block'
+    $('#modal-edicao').show()
 }
 
 // Função para fechar o modal de edição
 function fecharModalEdicao() {
-    const modalEdicao = document.getElementById('modalEdicao')
-    modalEdicao.style.display = 'none'
+    $('#modal-edicao').hide()
 }
 
 // Função para salvar as informações editadas
@@ -305,30 +300,40 @@ document
     .getElementsByClassName('fechar')[1]
     .addEventListener('click', fecharModalEdicao)
 window.addEventListener('click', function (event) {
-    const modalEdicao = document.getElementById('modalEdicao')
+    const modalEdicao = document.getElementById('modal-edicao')
     if (event.target == modalEdicao) {
         fecharModalEdicao()
     }
 })
 
 // Função para abrir o modal de exclusão
-function abrirModalExclusao() {
-    const modalExclusao = document.getElementById('modalExclusao')
-    modalExclusao.style.display = 'block'
+function abrirModalExclusao(id) {
+    stageData.emprestimoId = id
+    $('#modal-exclusao').show()
 }
-
 // Função para fechar o modal de exclusão
 function fecharModalExclusao() {
-    const modalExclusao = document.getElementById('modalExclusao')
-    modalExclusao.style.display = 'none'
+    stageData.emprestimoId = null
+    $('#modal-exclusao').hide()
 }
 
 // Função para confirmar a exclusão
-function confirmarExclusao() {
+async function confirmarExclusao() {
     // Lógica para a exclusão do item (enviar para a API, etc.)
 
-    // Fechar o modal após a confirmação da exclusão
-    fecharModalExclusao()
+    const resposta = await fetch(`/api/emprestimos/${stageData.emprestimoId}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+    })
+    if (resposta.status == 200) {
+        window.location.reload()
+    }
+    if (resposta.status != 200) {
+        alert('Internal Error!')
+    }
 }
 
 // Event listeners
@@ -342,10 +347,38 @@ document
     .getElementsByClassName('fechar')[2]
     .addEventListener('click', fecharModalExclusao)
 window.addEventListener('click', function (event) {
-    const modalExclusao = document.getElementById('modalExclusao')
+    const modalExclusao = document.getElementById('modal-exclusao')
     if (event.target == modalExclusao) {
         fecharModalExclusao()
     }
 })
+
+// Função para alterar o status para "Devolvido"
+function setStatusDevolvido() {
+    const btnStatusDevolvido = document.getElementById('btnStatusDevolvido')
+    const btnStatusPendente = document.getElementById('btnStatusPendente')
+
+    btnStatusDevolvido.classList.add('ativo')
+    btnStatusPendente.classList.remove('ativo')
+    stageData.emprestimoSituacao = 0
+}
+
+// Função para alterar o status para "Pendente"
+function setStatusPendente() {
+    const btnStatusDevolvido = document.getElementById('btnStatusDevolvido')
+    const btnStatusPendente = document.getElementById('btnStatusPendente')
+
+    btnStatusDevolvido.classList.remove('ativo')
+    btnStatusPendente.classList.add('ativo')
+    stageData.emprestimoSituacao = 10
+}
+
+// Event listeners para alterar o status
+document
+    .getElementById('btnStatusDevolvido')
+    .addEventListener('click', setStatusDevolvido)
+document
+    .getElementById('btnStatusPendente')
+    .addEventListener('click', setStatusPendente)
 
 inicia()
