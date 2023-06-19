@@ -14,7 +14,7 @@ function listarItens() {
           let tdNome = document.createElement('td');
           tdNome.textContent = item.nome;
           let tdDisponivel = document.createElement('td');
-          tdDisponivel.textContent = item.disponivel === 0 ? "Indisponível" : 'disponivel'; // Verificar se o valor é igual a 0
+          tdDisponivel.textContent = item.disponivel <= 0 ? "Indisponível" : 'disponivel'; // Verificar se o valor é igual a 0
           let tdDataDeAquisicao = document.createElement('td');
           tdDataDeAquisicao.textContent = item.datadeaquisicao;
   
