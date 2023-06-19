@@ -2,8 +2,8 @@
 fetch("api/itens")
 .then(resposta=>resposta.json())
 .then((data)=>{
-    // let pessoas = document.querySelector('#pessoas');
-    let tabela = document.querySelector("#tabelaitens")
+    // let items = document.querySelector('#items');
+    let tabela = document.querySelector("#tabela")
     for(let item of data){
         let tr = document.createElement('tr')
 
@@ -13,13 +13,13 @@ fetch("api/itens")
         tdnome.textContent = item.nome
         let tddisponivel = document.createElement('td')
         tddisponivel.textContent = item.disponivel
-        let tdDataDeAquisicao = document.createElement('td')
-        tdDataDeAquisicao.textContent = item.DataDeAquisicao
+        let tddatadeaquisicao = document.createElement('td')
+        tddatadeaquisicao.textContent = item.datadeaquisicao
 
         tr.appendChild(tdid)
         tr.appendChild(tdnome)
         tr.appendChild(tddisponivel)
-        tr.appendChild(tdDataDeAquisicao)
+        tr.appendChild(tddatadeaquisicao)
 
 
         //Adicionando um botão de excluir por linha da tabela
@@ -53,7 +53,8 @@ fetch("api/itens")
 
             document.querySelector("#id").value = item.id
             document.querySelector("#nome").value = item.nome
-            document.querySelector("#idade").value = item.idade
+            document.querySelector("#disponivel").value = item.disponivel
+            document.querySelector("#datadeaquisicao").value = item.datadeaquisicao
             document.querySelector('button').textContent ="Alterar"
 
             let form = document.querySelector('#form-cadastro')
@@ -61,18 +62,20 @@ fetch("api/itens")
                 event.preventDefault();
                 let id = document.querySelector('#id').value
                 let nome = document.querySelector('#nome').value
-                let idade = document.querySelector('#idade').value
-                let pessoaUpdate = {
+                let disponivel = document.querySelector('#disponivel').value
+                let datadeaquisicao = document.querySelector('#datadeaquisicao').value
+                let itemUpdate = {
                     id,
                     nome,
-                    idade
+                    disponivel: disponivel,
+                    datadeaquisicao:datadeaquisicao
                 }
                 fetch("api/itens"+"/"+item.id,{
                     method:"PUT",
                     headers:{
                         'Content-Type':'application/json'
                     },
-                    body: JSON.stringify(pessoaUpdate)
+                    body: JSON.stringify(itemUpdate)
                 })
                 .finally(()=>{
                     // window.location.reload();
@@ -100,13 +103,16 @@ if(document.querySelector('button').textContent =="Alterar"){
 }
 let id = document.querySelector("#id").value;
 let nome = document.querySelector("#nome").value;
-let idade = document.querySelector("#idade").value;
-let pessoa = {
+let disponivel = document.querySelector("#disponivel").value;
+let datadeaquisicao = document.querySelector("#datadeaquisicao").value;
+let item = {
     id,
     nome,
+    disponivel,
+    datadeaquisicao,
     
 }
-//console.log(pessoa)
+//console.log(item)
 fetch("api/itens",{
     //Método
     method: 'POST',
@@ -115,7 +121,7 @@ fetch("api/itens",{
         'Content-Type':'application/json'
     },
     //Quais são os dados
-    body: JSON.stringify(pessoa)
+    body: JSON.stringify(item)
 })
 .then(response=>response.json())
 });
