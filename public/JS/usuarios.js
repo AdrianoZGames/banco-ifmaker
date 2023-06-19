@@ -1,122 +1,121 @@
 fetch("api/usuarios")
 
-. então ( resposta => resposta . json ( ) )
-. então ( ( dados ) => {
+.then(resposta=>resposta.json())
+.then((data)=>{
     // let pessoas = document.querySelector('#pessoas');
-    let  tabela  =  document . querySelector ( "#tabela" )
-    for ( deixe  o item  de  dados ) {
-        deixe  tr  =  documento . criarElemento ( 'tr' )
+    let tabela = document.querySelector("#tabela")
+    for(let item of data){
+        let tr = document.createElement('tr')
 
-        deixe  tdId  =  documento . criarElemento ( 'td' )
-        tdId . textContent  =  item . eu ia
-        deixe  tdNome  =  documento . criarElemento ( 'td' )
-        tdNome . textContent  =  item . nome
-        let  tdIdade  =  document . criarElemento ( 'td' )
-        tdIdade . textContent  =  item . idade
+        let tdId = document.createElement('td')
+        tdId.textContent = item.id
+        let tdNome = document.createElement('td')
+        tdNome.textContent = item.nome
+        let tdIdade = document.createElement('td')
+        tdIdade.textContent = item.idade
 
-        tr . appendChild ( tdId )
-        tr . appendChild ( tdNome )
-        tr . appendChild ( tdIdade )
+        tr.appendChild(tdId)
+        tr.appendChild(tdNome)
+        tr.appendChild(tdIdade)
 
 
         //Adicionando um botão de excluir por linha da tabela
-        let  aExcluir  =  document . criarElemento ( 'a' )
-        aExcluir . textContent  =  "Excluir"
-        aExcluir . classList . add ( "excluir" )
+        let aExcluir = document.createElement('a')
+        aExcluir.textContent = "Excluir"
+        aExcluir.classList.add("excluir")
 
-        //Adicionando uma ação ao clicar no botão
-        aExcluir . addEventListener ( 'clique' , ( evento ) => {
-            evento . prevenirPadrão ( ) ;
-            fetch ( "http://localhost:3000" + '/' + item . id , {
-                método : 'DELETE'
-            } )
-            . finalmente ( ( ) => {
+        //Adicionando uma ação quando clicar no botão
+        aExcluir.addEventListener('click',(event)=>{
+            event.preventDefault();
+            fetch("http://localhost:3000"+'/'+item.id,{
+                method:'DELETE'
+            })
+            .finally(()=>{
                 // window.location.reload();
-            } )
-        } )
+            })
+        })
 
-        let  tdBotaoExcluir  =  document . criarElemento ( 'td' )
-        tdBotaoExcluir . appendChild ( aExcluir )
+        let tdBotaoExcluir = document.createElement('td')
+        tdBotaoExcluir.appendChild(aExcluir)
 
 
-        let  tdBotaoAlterar  =  document . criarElemento ( 'td' )
-        let  aAlterar  =  document . criarElemento ( 'a' )
-        aAlterar . classList . add ( "alterar" )
-        aAlterar . textContent = "Alterar"
+        let tdBotaoAlterar = document.createElement('td')
+        let aAlterar = document.createElement('a')
+        aAlterar.classList.add("alterar")
+        aAlterar.textContent="Alterar"
 
-        aAlterar . addEventListener ( 'clique' , ( evento ) => {
-            evento . prevenirPadrão ( )
+        aAlterar.addEventListener('click',(event)=>{
+            event.preventDefault()
             // O que precisamos fazer aqui?/
 
-            documento . consultaSeletor ( "#id" ) . valor  =  artigo . eu ia
-            documento . querySelector ( "#nome" ) . valor  =  artigo . nome
-            documento . querySelector ( "#idade" ) . valor  =  artigo . idade
-            documento . querySelector ( 'botão' ) . textContent  = "Alterar"
+            document.querySelector("#id").value = item.id
+            document.querySelector("#nome").value = item.nome
+            document.querySelector("#idade").value = item.idade
+            document.querySelector('button').textContent ="Alterar"
 
-            deixe  formulário  =  documento . querySelector ( '#form-cadastro' )
-            forma . addEventListener ( 'enviar' , ( evento ) => {
-                evento . prevenirPadrão ( ) ;
-                deixe  id  =  documento . querySelector ( '#id' ) . valor
-                deixe  nome  =  documento . querySelector ( '#nome' ) . valor
-                let  idade  =  document . querySelector ( '#idade' ) . valor
-                let  pessoaUpdate  =  {
-                    identificação ,
-                    nome ,
+            let form = document.querySelector('#form-cadastro')
+            form.addEventListener('submit',(event)=>{
+                event.preventDefault();
+                let id = document.querySelector('#id').value
+                let nome = document.querySelector('#nome').value
+                let idade = document.querySelector('#idade').value
+                let pessoaUpdate = {
+                    id,
+                    nome,
                     idade
                 }
-                fetch ( "http://localhost:3000" + "/" + item . id , {
-                    método : "PUT" ,
-                    cabeçalhos : {
-                        'Tipo de conteúdo' : 'aplicativo/json'
-                    } ,
-                    corpo : JSON . stringify ( pessoaUpdate )
-                } )
-                . finalmente ( ( ) => {
+                fetch("http://localhost:3000"+"/"+item.id,{
+                    method:"PUT",
+                    headers:{
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(pessoaUpdate)
+                })
+                .finally(()=>{
                     // window.location.reload();
-                } )
+                })
                 
-            } )
-        } )
+            })
+        })
 
-        tdBotaoAlterar . appendChild ( aAlterar )
+        tdBotaoAlterar.appendChild(aAlterar)
 
 
-        tr . appendChild ( tdBotaoAlterar )
-        tr . appendChild ( tdBotaoExcluir )
+        tr.appendChild(tdBotaoAlterar)
+        tr.appendChild(tdBotaoExcluir)
 
-        tabela . appendChild ( tr )
+        tabela.appendChild(tr)
     }
-} )
-deixe  formulário  =  documento . querySelector ( "#formulário-cadastro" ) ;
+})
+let form = document.querySelector("#form-cadastro");
 
-forma . addEventListener ( 'enviar' , ( evento ) => {
-evento . prevenirPadrão ( ) ;
+form.addEventListener('submit',(event)=>{
+event.preventDefault();
 
-if ( document . querySelector ( 'button' ) . textContent  == "Alterar" ) {
-    retornar
+if(document.querySelector('button').textContent =="Alterar"){
+    return
 }
-deixe  id  =  documento . consultaSeletor ( "#id" ) . valor ;
-deixe  nome  =  documento . querySelector ( "#nome" ) . valor ;
-let  idade  =  document . querySelector ( "#idade" ) . valor ;
-deixa  pessoa  =  {
-    identificação ,
-    nome ,
+let id = document.querySelector("#id").value;
+let nome = document.querySelector("#nome").value;
+let idade = document.querySelector("#idade").value;
+let pessoa = {
+    id,
+    nome,
     idade
 }
 //console.log(pessoa)
-buscar ( "http://localhost:3000" , {
+fetch("http://localhost:3000",{
     //Método
-    método : 'POST' ,
+    method: 'POST',
     //Tipo de dado
-    cabeçalhos : {
-        'Tipo de conteúdo' : 'aplicativo/json'
-    } ,
+    headers:{
+        'Content-Type':'application/json'
+    },
     //Quais são os dados
-    corpo : JSON . stringify ( pessoa )
-} )
-. então ( resposta => resposta . json ( ) )
-} ) ;
-
+    body: JSON.stringify(pessoa)
+})
+.then(response=>response.json())
+});
 
 
 
