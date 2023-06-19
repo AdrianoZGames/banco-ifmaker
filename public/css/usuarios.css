@@ -1,21 +1,119 @@
+@import url('https://fonts.googleapis.com/css2? family=Raleway&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
 body{
-    background-color: rgba(8, 1, 63, 0.701);
-}
-.criando{
-    padding-top: 45px;
-display: flex;
-align-items: center;  
-flex-direction: column;
-}
-form{ 
-display: flex;
-align-items: center;  
-flex-direction: column;
-
+    background-image: url(https://i.imgur.com/EzmzqvD.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
-.text{
-    font-size: medium;
+.a{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 100px;
 }
+
+.as{
+    background-color: #ffffff80;
+    padding: 30px;
+    border-radius: 4%;
+    box-shadow: 3px 3px 1px 0px #00000070;
+}
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+    color: aquamarine;
+}
+
+.oi input{
+    width: 100%;
+    padding: 5px 5px;
+    display: inline-block ;
+    border: 0;
+    border-bottom: 2px solid aquamarine;
+    background-color: transparent;
+    outline: none;
+    min-width: 180px;
+    font-size: 16px;
+    transition: all .3s ease-out;
+    border-radius: 0;
+}
+
+.oi{
+    position: relative;
+    padding-top: 13px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.oi input:focus{
+    border-bottom: 2px solid #44a4;
+}
+.oi label{
+    color: darkcyan;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 13px;
+    transition: all .3s ease-out;
+}
+
+.oi input:focus + label{
+    font-size: 13px;
+    margin-top: 0;
+    color:#44a4; ;
+}
+
+button{
+     background-color: transparent;
+     border-color:black;
+     color: black;
+     padding: 7px;
+     font-weight: bold;
+     font-size: 12pt;
+     margin-top: 20px;
+     border-radius: 4px;
+     cursor: pointer;
+     outline: none;
+     transition: all .4s ease-out;
+
+}
+button:hover{
+    background-color: black;
+    color: white;
+}
+
+.botao{
+    display: flex;
+    justify-content: center;
+}
+
+
+#erro{
+    text-align: center;
+    color: red;
+    background-color: brown;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+}
+#sucesso{
+    text-align: center;
+    color: green;
+    background-color: chartreuse;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+}
+
+
+
 
 
