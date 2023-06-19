@@ -26,7 +26,6 @@ async function inicia() {
     emprestimosData = [...emprestimos]
 
     criarListagemDinamica()
-    // eventosNosButoes()
 }
 
 // Função que será acionada pelo evento de clique no botão "Editar"
