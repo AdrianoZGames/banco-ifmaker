@@ -81,7 +81,7 @@
                     <tr>
                         <th>ID Empréstimo</th>
                         <th>ID do item</th>
-                        <th>ID da Pessoa que Emprestou</th>
+                        <th>ID da Pessoa</th>
                         <th>Data de Empréstimo</th>
                         <th>Data de Devolução</th>
                         <th>Status</th>
@@ -106,7 +106,7 @@
         </div>
 
         <!-- Modal de edição -->
-        <div id="modalEdicao" class="modal" style="display: none">
+        <div id="modal-edicao" class="modal" style="display: none">
             <div class="modal-content">
                 <span class="fechar">&times;</span>
                 <h2>Editar Informações</h2>
@@ -114,16 +114,21 @@
                 <input type="date" id="dataEmprestimoEdicao" />
                 <label for="dataDevolucaoEdicao">Data de Devolução:</label>
                 <input type="date" id="dataDevolucaoEdicao" />
+                <label for="statusEdicao">Status:</label>
+                <button id="btnStatusDevolvido">Devolvido</button>
+                <button id="btnStatusPendente">Pendente</button>
                 <button id="btnSalvarEdicao">Salvar</button>
             </div>
         </div>
 
         <!-- Modal de exclusão -->
-        <div id="modalExclusao" class="modal" style="display: none">
+        <div id="modal-exclusao" class="modal" style="display: none">
             <div class="modal-content">
                 <span class="fechar">&times;</span>
                 <h2>Confirmar Exclusão</h2>
-                <p>Tem certeza de que deseja excluir este item?</p>
+                <p style="margin: 10px 0">
+                    Tem certeza de que deseja excluir este item?
+                </p>
                 <button id="btnCancelarExclusao">Cancelar</button>
                 <button id="btnConfirmarExclusao">Confirmar</button>
             </div>

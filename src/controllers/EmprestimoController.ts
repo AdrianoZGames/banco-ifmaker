@@ -26,7 +26,7 @@ async function criarEmprestimos(req: Request, res: Response) {
         !idItem ||
         !dataDeEmprestimo ||
         !dataDeDevolucao ||
-        !status
+        (status !== false && status !== 0)
     ) {
         return res.status(400).json({ error: 'data is missing' })
     }
