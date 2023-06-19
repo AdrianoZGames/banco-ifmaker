@@ -1,18 +1,20 @@
 /* alert('') */
-fetch("http://localhost:3000/itens")
+fetch("api/itens")
 .then(resposta=>resposta.json())
 .then((data)=>{
     // let pessoas = document.querySelector('#pessoas');
-    let tabela = document.querySelector("#tabela")
+    let tabela = document.querySelector("#tabelaitens")
     for(let item of data){
         let tr = document.createElement('tr')
 
-        let tdId = document.createElement('td')
+        let tdid = document.createElement('td')
         tdId.textContent = item.id
-        let tdNome = document.createElement('td')
-        tdNome.textContent = item.nome
-        let tdIdade = document.createElement('td')
-        tdIdade.textContent = item.idade
+        let tdnome = document.createElement('td')
+        tdnome.textContent = item.nome
+        let tddisponivel = document.createElement('td')
+        tddisponivel.textContent = item.disponivel
+        let tdDataDeAquisicao = document.createElement('td')
+        tdDataDeAquisicao.textContent = item.DataDeAquisicao
 
         tr.appendChild(tdid)
         tr.appendChild(tdnome)
@@ -28,7 +30,7 @@ fetch("http://localhost:3000/itens")
         //Adicionando uma ação quando clicar no botão
         aExcluir.addEventListener('click',(event)=>{
             event.preventDefault();
-            fetch("http://localhost:3000"+'/'+item.id,{
+            fetch("api/itens"+'/'+item.id,{
                 method:'DELETE'
             })
             .finally(()=>{
@@ -65,7 +67,7 @@ fetch("http://localhost:3000/itens")
                     nome,
                     idade
                 }
-                fetch("http://localhost:3000"+"/"+item.id,{
+                fetch("api/itens"+"/"+item.id,{
                     method:"PUT",
                     headers:{
                         'Content-Type':'application/json'
@@ -102,10 +104,10 @@ let idade = document.querySelector("#idade").value;
 let pessoa = {
     id,
     nome,
-    idade
+    
 }
 //console.log(pessoa)
-fetch("http://localhost:3000",{
+fetch("api/itens",{
     //Método
     method: 'POST',
     //Tipo de dado
