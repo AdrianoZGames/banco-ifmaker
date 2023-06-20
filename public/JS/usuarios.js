@@ -50,7 +50,7 @@ fetch('api/usuarios')
                 event.preventDefault()
                 // O que precisamos fazer aqui?/
 
-                document.querySelector('#usuario').value = item.nome
+                document.querySelector('#nome').value = item.nome
                 document.querySelector('#senha').value = item.senha
                 document.querySelector('#email').value = item.email
                 document.querySelector('#cpf').value = item.cpf
@@ -60,26 +60,27 @@ fetch('api/usuarios')
                 let form = document.querySelector('#form-cadastro')
                 form.addEventListener('submit', (event) => {
                     event.preventDefault()
-                    let usuario = document.querySelector('#usuario').value
+                    let nome = document.querySelector('#nome').value
                     let senha = document.querySelector('#senha').value
                     let email = document.querySelector('#email').value
                     let cpf = document.querySelector('#cpf').value
                     let telefone = document.querySelector('#telefone').value
                     let pessoaUpdate = {
-                        usuario,
+                        nome,
                         senha,
                         email,
                         cpf,
-                        telefone,
+                        telefone
                     }
                     fetch('api/usuarios' + '/' + item.id, {
+                        
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(pessoaUpdate),
                     }).finally(() => {
-                        // window.location.reload();
+                         window.location.reload();
                     })
                 })
             })
@@ -100,7 +101,7 @@ form.addEventListener('submit', (event) => {
     if (document.querySelector('button').textContent == 'Alterar') {
         return
     }
-    let nome = document.querySelector('#usuario').value
+    let nome = document.querySelector('#nome').value
     let senha = document.querySelector('#senha').value
     let email = document.querySelector('#email').value
     let cpf = document.querySelector('#cpf').value
@@ -110,7 +111,7 @@ form.addEventListener('submit', (event) => {
         senha,
         email,
         cpf,
-        telefone,
+        telefone
     }
     //console.log(pessoa)
     fetch('api/usuarios', {

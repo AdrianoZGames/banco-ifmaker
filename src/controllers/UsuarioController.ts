@@ -20,7 +20,7 @@ async function getUsuarios(req: Request, res: Response) {
 async function criarUsuarios(req: Request, res: Response) {
     const { nome,senha,email,cpf,telefone} = req.body
 
-    if (!nome || !senha  ) {
+    if (!nome || !senha || !email || !cpf || !telefone ) {
         return res.status(400).json({ error: 'data is missing' })
     }
 
@@ -48,23 +48,26 @@ async function criarUsuarios(req: Request, res: Response) {
 }
 
 async function atualizarUsuarios(req: Request, res: Response) {
-    const { nome, senha } = req.body
+    const { nome,senha,email,cpf,telefone } = req.body
     const { id } = req.params
 
-    if (!nome && !senha) {
+    if (!nome && !senha && !email && !cpf && !telefone) {
         return res.status(400).json({ error: 'You must enter a new data' })
     }
 
     const usuario: Usuario = {
         nome,
         senha,
+        email,
+        cpf,
+        telefone
     }
 
     try {
         const connection = await criarConexao()
 
-        const consulta = 'UPDATE usuarios SET nome = ?, senha = ? WHERE id = ?'
-        await connection.query(consulta, [usuario.nome, usuario.senha, id])
+        const consulta = 'UPDATE usuarios SET nome = ?, senha = ?, email = ?, cpf = ?, telefone = ? WHERE id = ?'
+        await connection.query(consulta, [usuario.nome, usuario.senha, usuario.email, usuario.cpf, usuario.telefone, id])
 
         connection.end()
 
