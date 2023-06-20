@@ -191,11 +191,12 @@ function criarListagemDinamica() {
                 dataFormatadaEmprestimo,
                 dataFormatadaDevolucao,
                 item.id,
-                item.status
+                item.status,
+                item.id_item
             )
         })
         buttonExcluir.addEventListener('click', () => {
-            abrirModalExclusao(item.id)
+            abrirModalExclusao(item.id, item.id_item)
         })
 
         acoesTd.appendChild(buttonEditar)
@@ -232,7 +233,7 @@ async function salvarInformacoes() {
         idItem: stageData.itemId,
         dataDeEmprestimo: dataEmprestimo,
         dataDeDevolucao: dataDevolucao,
-        status: 0,
+        status: 10,
     }
 
     const resposta = await fetch('/api/emprestimos', {
@@ -266,12 +267,13 @@ window.addEventListener('click', function (event) {
 })
 
 // Função para abrir o modal de edição
-function abrirModalEdicao(dataEmprestimo, dataDevolucao, id, status) {
+function abrirModalEdicao(dataEmprestimo, dataDevolucao, id, status, id_item) {
     const dataEmprestimoEdicao = document.getElementById('dataEmprestimoEdicao')
     const dataDevolucaoEdicao = document.getElementById('dataDevolucaoEdicao')
 
     // Preencher os campos com os valores existentes
     stageData.emprestimoId = id
+    stageData.itemId = id_item
     dataEmprestimoEdicao.value = dataEmprestimo
     dataDevolucaoEdicao.value = dataDevolucao
 
@@ -288,6 +290,7 @@ function abrirModalEdicao(dataEmprestimo, dataDevolucao, id, status) {
 function fecharModalEdicao() {
     $('#modal-edicao').hide()
     stageData.emprestimoId = null
+    stageData.itemId = null
 }
 
 // Função para salvar as informações editadas
@@ -305,6 +308,7 @@ async function salvarInformacoesEdicao() {
         dataDeEmprestimo: dataEmprestimoEdicao,
         dataDeDevolucao: dataDevolucaoEdicao,
         status: stageData.emprestimoSituacao,
+        idItem: stageData.itemId,
     }
 
     const resposta = await fetch(`/api/emprestimos/${stageData.emprestimoId}`, {
@@ -339,24 +343,31 @@ window.addEventListener('click', function (event) {
 })
 
 // Função para abrir o modal de exclusão
-function abrirModalExclusao(id) {
+function abrirModalExclusao(id, id_item) {
     stageData.emprestimoId = id
+    stageData.itemId = id_item
     $('#modal-exclusao').show()
 }
 // Função para fechar o modal de exclusão
 function fecharModalExclusao() {
     stageData.emprestimoId = null
+    stageData.itemId = null
     $('#modal-exclusao').hide()
 }
 
 // Função para confirmar a exclusão
 async function confirmarExclusao() {
+    let emprestimo = {
+        idItem: stageData.itemId,
+    }
+
     const resposta = await fetch(`/api/emprestimos/${stageData.emprestimoId}`, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
         },
+        body: JSON.stringify(emprestimo),
     })
     if (resposta.status == 200) {
         window.location.reload()

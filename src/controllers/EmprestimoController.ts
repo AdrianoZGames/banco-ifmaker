@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import e, { Request, Response } from 'express'
 import { criarConexao } from '../database'
 import { Emprestimo } from '../models/Emprestimo'
 
@@ -26,7 +26,7 @@ async function criarEmprestimos(req: Request, res: Response) {
         !idItem ||
         !dataDeEmprestimo ||
         !dataDeDevolucao ||
-        (status !== false && status !== 0)
+        !status
     ) {
         return res.status(400).json({ error: 'data is missing' })
     }
@@ -44,6 +44,8 @@ async function criarEmprestimos(req: Request, res: Response) {
 
         const consulta =
             'INSERT INTO emprestimos (id_usuario, id_item, `data-de-emprestimo`, `data-de-devolucao`, status) VALUES (?,?,?,?,?)'
+        const consultaItem = 'UPDATE itens SET disponivel = ? WHERE id = ?'
+
         await connection.query(consulta, [
             emprestimo.idUsuario,
             emprestimo.idItem,
@@ -51,6 +53,8 @@ async function criarEmprestimos(req: Request, res: Response) {
             emprestimo.dataDeDevolucao,
             emprestimo.status,
         ])
+
+        await connection.query(consultaItem, [0, emprestimo.idItem])
 
         connection.end()
 
@@ -61,17 +65,18 @@ async function criarEmprestimos(req: Request, res: Response) {
 }
 
 async function atualizarEmprestimos(req: Request, res: Response) {
-    const { dataDeEmprestimo, dataDeDevolucao, status } = req.body
+    const { dataDeEmprestimo, dataDeDevolucao, status, idItem } = req.body
     const { id } = req.params
 
-    if (!dataDeEmprestimo && !dataDeDevolucao && !status) {
+    if (!dataDeEmprestimo && !dataDeDevolucao && !status && !idItem) {
         return res.status(400).json({ error: 'You must enter a new data' })
     }
 
-    const emprestimo: Omit<Emprestimo, 'idUsuario' | 'idItem'> = {
+    const emprestimo: Omit<Emprestimo, 'idUsuario'> = {
         dataDeEmprestimo,
         dataDeDevolucao,
         status,
+        idItem,
     }
 
     try {
@@ -79,12 +84,20 @@ async function atualizarEmprestimos(req: Request, res: Response) {
 
         const consulta =
             'UPDATE emprestimos SET `data-de-emprestimo` = ?, `data-de-devolucao` = ?, status = ? WHERE id = ?'
+        const consultaItem = 'UPDATE itens SET disponivel = ? WHERE id = ?'
         await connection.query(consulta, [
             emprestimo.dataDeEmprestimo,
             emprestimo.dataDeDevolucao,
             emprestimo.status,
             id,
         ])
+        console.log(emprestimo)
+
+        if (!emprestimo.status) {
+            await connection.query(consultaItem, [10, emprestimo.idItem])
+        } else {
+            await connection.query(consultaItem, [0, emprestimo.idItem])
+        }
 
         connection.end()
 
@@ -95,14 +108,24 @@ async function atualizarEmprestimos(req: Request, res: Response) {
 }
 
 async function apagarEmprestimos(req: Request, res: Response) {
+    const { idItem } = req.body
     const { id } = req.params
+
+    const emprestimo: Omit<
+        Emprestimo,
+        'idUsuario' | 'dataDeEmprestimo' | 'dataDeDevolucao' | 'status'
+    > = {
+        idItem,
+    }
 
     try {
         const connection = await criarConexao()
 
         const consulta = 'DELETE FROM emprestimos WHERE id = ?'
+        const consultaItem = 'UPDATE itens SET disponivel = ? WHERE id = ?'
 
         await connection.query(consulta, [id])
+        await connection.query(consultaItem, [10, emprestimo.idItem])
 
         connection.end()
 
