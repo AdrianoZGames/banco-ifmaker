@@ -1,19 +1,17 @@
-
-
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: 'Raleway', sans-serif;
 }
 
-body{
+body {
     background-image: url(https://i.imgur.com/EzmzqvD.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
 }
 
-.a{
+.a {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -21,84 +19,81 @@ body{
     flex-direction: column;
 }
 
-.as{
+.as {
     background-color: #ffffff80;
     padding: 30px;
     border-radius: 4%;
     box-shadow: 3px 3px 1px 0px #00000070;
 }
-h1{
+h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: aquamarine;
+    color: rgb(29, 29, 137);
 }
 
-.oi input{
+.oi input {
     width: 100%;
     padding: 5px 5px;
-    display: inline-block ;
+    display: inline-block;
     border: 0;
-    border-bottom: 2px solid aquamarine;
+    border-bottom: 2px solid blue;
     background-color: transparent;
     outline: none;
     min-width: 180px;
     font-size: 16px;
-    transition: all .3s ease-out;
+    transition: all 0.3s ease-out;
     border-radius: 0;
 }
 
-.oi{
+.oi {
     position: relative;
     padding-top: 13px;
     margin-top: 5%;
     margin-bottom: 5%;
 }
-.oi input:focus{
+.oi input:focus {
     border-bottom: 2px solid #44a4;
 }
-.oi label{
-    color: darkcyan;
+.oi label {
+    color: black;
     pointer-events: none;
     position: absolute;
     top: 0;
     left: 0;
-    margin-top: 0,5px;
-    transition: all .3s ease-out;
-    
+    margin-top: 0, 5px;
+    transition: all 0.3s ease-out;
 }
 
-.oi input:focus + label{
+.oi input:focus + label {
     font-size: 13px;
     margin-top: 0;
-    color:#44a4; ;
+    color: #44a4;
 }
 
-button{
-     background-color: transparent;
-     border-color:black;
-     color: black;
-     padding: 7px;
-     font-weight: bold;
-     font-size: 12pt;
-     margin-top: 20px;
-     border-radius: 4px;
-     cursor: pointer;
-     outline: none;
-     transition: all .4s ease-out;
-
+button {
+    background-color: transparent;
+    border-color: black;
+    color: black;
+    padding: 7px;
+    font-weight: bold;
+    font-size: 12pt;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.4s ease-out;
 }
-button:hover{
+button:hover {
     background-color: black;
     color: white;
 }
 
-.botao{
+.botao {
     display: flex;
     justify-content: center;
 }
 
-
-#erro{
+#erro {
     text-align: center;
     color: red;
     background-color: brown;
@@ -106,7 +101,7 @@ button:hover{
     border-radius: 4px;
     display: none;
 }
-#sucesso{
+#sucesso {
     text-align: center;
     color: green;
     background-color: chartreuse;
@@ -115,93 +110,85 @@ button:hover{
     display: none;
 }
 
-.lista{
+.lista {
     display: flex;
     justify-content: center;
     padding-left: 40px;
-
 }
 
-
-
-
-
-
-
-
-
-.form-cadastro{
+.form-cadastro {
     display: flex;
     flex-direction: column;
     width: 50vw;
 }
-.tabela{
+.tabela {
     border: 1px solid black;
     min-width: 50vw;
 }
-.tabela thead{
-    background-color: #01318ac1;
+.tabela thead {
+    background-color: rgb(10, 10, 74);
     color: white;
 }
-.tabela tbody{
+.tabela tbody {
     background-color: #eee;
 }
-.tabela, td, th{
+.tabela,
+td,
+th {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 15px 30px;
 }
-tr:nth-child(even){
+tr:nth-child(even) {
     background-color: #f7cdcd73;
 }
-body{
+body {
     font-size: 2em;
     background-color: rgb(246, 246, 246);
     color: rgb(12, 12, 12);
 }
-input{
+input {
     border: 1px solid #f0f0f0;
     padding: 10px;
     font-size: 1em;
     margin-bottom: 15px;
 }
-input:hover{
+input:hover {
     border-color: rgba(106, 106, 208, 0.383);
 }
-input:focus-visible{
-    outline-color: rgba(18, 30, 161, 0.711);
+input:focus-visible {
+    outline-color: rgb(18, 30, 161, 0.711);
 }
-button{
-    background-color: #01318ac1;
+button {
+    background-color: aquamarine;
     color: white;
     font-size: 0.8em;
     /* margin: 0px 15px; */
     padding: 15px 30px;
 }
-form{
+form {
     border: 1px solid #f0f0f0;
     padding: 20px;
     box-sizing: border-box;
     margin-top: 15px;
 }
-.excluir{
+.excluir {
     background-color: rgba(216, 12, 12, 0.896);
     color: white;
     padding: 10px 20px;
     border-radius: 3px;
-
 }
-.excluir:hover{
+.excluir:hover {
     background-color: rgba(216, 12, 12, 0.991);
-    cursor:pointer;
+    cursor: pointer;
 }
-.alterar{
+.alterar {
     background-color: #01318ac1;
     color: white;
     padding: 10px 20px;
     border-radius: 3px;
 }
-.alterar:hover{
+.alterar:hover {
     background-color: #01318aa4;
-    cursor:pointer;
+    cursor: pointer;
 }

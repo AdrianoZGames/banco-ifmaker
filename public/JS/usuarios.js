@@ -7,7 +7,7 @@ fetch('api/usuarios')
             let tr = document.createElement('tr')
 
             let tdusuario = document.createElement('td')
-            tdusuario.textContent = item.usuario
+            tdusuario.textContent = item.nome
             let tdsenha = document.createElement('td')
             tdsenha.textContent = item.senha
             let tdemail = document.createElement('td')
@@ -50,7 +50,7 @@ fetch('api/usuarios')
                 event.preventDefault()
                 // O que precisamos fazer aqui?/
 
-                document.querySelector('#usuario').value = item.usuario
+                document.querySelector('#usuario').value = item.nome
                 document.querySelector('#senha').value = item.senha
                 document.querySelector('#email').value = item.email
                 document.querySelector('#cpf').value = item.cpf
