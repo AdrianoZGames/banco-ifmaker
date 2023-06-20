@@ -15,7 +15,7 @@ async function getItens(req: Request, res: Response) {
 async function criarItens(req: Request, res: Response) {
     const banco = await criarConexao() // responsavel pela conexão com o banco
     const consulta = "INSERT INTO itens VALUES (id, nome, disponivel, `data-de-aquisicao`)"
-    const result = await banco.query(consulta,[req.body.id,req.body.nome,req.body.disponivel,req.body.DataDeAquisicao]);
+    const result = await banco.query(consulta,[req.body.id,req.body.nome,req.body.disponivel,req.body.data_de_aquisicao]);
     banco.end();
     res.send(result[0]); 
 }
@@ -23,8 +23,8 @@ async function criarItens(req: Request, res: Response) {
 async function atualizarItens(req: Request, res: Response) {
     const banco = await criarConexao() // responsavel pela conexão com o banco
     const consulta = 
-        "UPDATE itens SET id = ?, nome = ?, disponivel = ?, `data-de-aquisicao` WHERE id = ?";
-    const result = await banco.query(consulta,[req.body.id,req.body.nome,req.body.disponivel,req.body.DataDeAquisicao,req.params.id]);
+        "UPDATE itens SET nome = ?, disponivel = ?, `data-de-aquisicao` = ? WHERE id = ?";
+    const result = await banco.query(consulta,[req.body.nome,req.body.disponivel,req.body.data_de_aquisicao,req.params.id]);
     banco.end();
     res.send(result[0]);
 }
