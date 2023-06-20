@@ -92,7 +92,7 @@ function excluirItem(event) {
 }
 
 // Função para cadastrar um novo item
-function criarItem(event) {
+function criarItens(event) {
   event.preventDefault();
 
   let form = document.querySelector("#cadastro");
@@ -107,7 +107,7 @@ function criarItem(event) {
   let item = {
     nome: nome,
     disponivel: disponivel,
-    "data-de-aquisicao": dataDeAquisicao
+    data_de_aquisicao: dataDeAquisicao
   };
 
   fetch(url, {
@@ -128,7 +128,7 @@ function criarItem(event) {
 
 // Evento de submit do formulário
 let form = document.querySelector("#cadastro");
-form.addEventListener('submit', criarItem);
+form.addEventListener('submit', criarItens);
 
 // Listar os itens ao carregar a página
 listarItens();
