@@ -1,64 +1,137 @@
-/* Estilo da tabela */
+body {
+    background-color: #c0f4c2;
+}
 table {
-  width: 100%;
-  border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
 }
 
-th, td {
-  padding: 8px;
-  text-align: left;
+th,
+td {
+    padding: 8px;
+    text-align: left;
 }
 
 thead {
-  background-color: #f2f2f2;
+    background-color: #f2f2f2;
 }
 
-/* Estilo dos botões */
 button {
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-button.editar {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-}
-
-button.excluir {
-  background-color: #f44336;
-  color: #fff;
-  border: none;
-  margin-left: 4px;
-}
-
-/* Estilo do formulário */
 form {
-  margin-top: 16px;
+    margin-top: 16px;
 }
 
 label {
-  display: block;
-  margin-bottom: 8px;
+    display: block;
+    margin-bottom: 8px;
 }
 
-input[type="text"],
-input[type="number"],
-input[type="date"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+input[type='text'],
+input[type='number'],
+input[type='date'] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-button[type="submit"] {
-  background-color: #008CBA;
-  color: #fff;
-  border: none;
+button[type='submit'] {
+    background-color: #008cba;
+    color: #fff;
+    border: none;
 }
 
-button[type="submit"]:hover {
-  background-color: #007BAA;
+button[type='submit']:hover {
+    background-color: #007baa;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+}
+
+table {
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+thead {
+    background-color: #7cdb8c;
+}
+
+form {
+    width: calc(100% - 40px);
+    margin: 20px auto 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+input[type='text'],
+input[type='number'],
+input[type='date'] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type='submit'] {
+    transition: 200ms;
+    background-color: #4ea160;
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type='submit']:hover {
+    background-color: #2f743a;
+}
+
+button.editar {
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.excluir {
+    background-color: #f44336;
+    color: #ffffff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 4px;
 }

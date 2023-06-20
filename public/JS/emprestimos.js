@@ -30,8 +30,6 @@ async function inicia() {
     criarListagemDinamica()
 }
 
-
-
 // Função para criar a listagem dinâmica
 function criarListagemDinamica() {
     const tabelaItens = document.getElementById('tabela-itens')
@@ -207,7 +205,6 @@ function abrirModalEmprestimo() {
     $('.tabela-centralizada').toggle()
     $('#modal-emprestimo').show()
 }
-
 
 // Função para fechar o modal Empréstimos
 function fecharModal() {
