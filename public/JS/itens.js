@@ -1,132 +1,134 @@
+// Função para formatar a data no formato DD/MM/AAAA
+function formatarData(data) {
+  const dataObj = new Date(data);
+  const dia = dataObj.getDate().toString().padStart(2, '0');
+  const mes = (dataObj.getMonth() + 1).toString().padStart(2, '0');
+  const ano = dataObj.getFullYear().toString();
+  return `${dia}/${mes}/${ano}`;
+}
+
 // Função para listar os itens
 function listarItens() {
-    fetch("api/itens")
-      .then(resposta => resposta.json())
-      .then((data) => {
-        let tabela = document.querySelector("#tabela-itens");
-        tabela.innerHTML = ""; // Limpar a tabela antes de preenchê-la novamente
-  
-        for (let item of data) {
-          let tr = document.createElement('tr');
-  
-          let tdId = document.createElement('td');
-          tdId.textContent = item.id;
-          let tdNome = document.createElement('td');
-          tdNome.textContent = item.nome;
-          let tdDisponivel = document.createElement('td');
-          tdDisponivel.textContent = item.disponivel <= 0 ? "Indisponível" : 'disponivel'; // Verificar se o valor é igual a 0
-          let tdDataDeAquisicao = document.createElement('td');
-          tdDataDeAquisicao.textContent = item.datadeaquisicao;
-  
-          tr.appendChild(tdId);
-          tr.appendChild(tdNome);
-          tr.appendChild(tdDisponivel);
-          tr.appendChild(tdDataDeAquisicao);
-  
-          tabela.appendChild(tr);
-        }
-      });
-  }
-  
-  // Função para criar um novo item
-  function criarItem(item) {
-    fetch("api/itens", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    })
-      .then(response => response.json())
-      .then(() => {
-        // Item criado com sucesso, atualizar a lista
-        listarItens();
-      });
-  }
-  
-  // Função para atualizar um item existente
-  function atualizarItem(id, item) {
-    fetch("api/itens/" + id, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(item)
-    })
-      .then(response => response.json())
-      .then(() => {
-        // Item atualizado com sucesso, atualizar a lista
-        listarItens();
-      });
-  }
-  
-  // Função para excluir um item
-  function excluirItem(id) {
-    fetch("api/itens/" + id, {
-      method: 'DELETE'
-    })
-      .then(() => {
-        // Item excluído com sucesso, atualizar a lista
-        listarItens();
-      });
-  }
-  
-  // Listar itens inicialmente
-  listarItens();
-  
-  // Event listener para o formulário de criação/atualização de itens
-  let form = document.querySelector("#cadastro");
-  
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-  
-    let id = document.querySelector("#id").value;
-    let nome = document.querySelector("#nome").value;
-    let disponivel = document.querySelector("#disponivel").value;
-    let datadeaquisicao = document.querySelector("#datadeaquisicao").value;
-    let item = {
-      id,
-      nome,
-      disponivel,
-      datadeaquisicao: datadeaquisicao
-    };
-  
-    if (id) {
-      // Se o ID existir, atualizar o item
-      atualizarItem(id, item);
-    } else {
-      // Caso contrário, criar um novo item
-      criarItem(item);
-    }
-  });
-  
-  // Event listener para os botões de excluir
-  let tabela = document.querySelector("#tabela-itens");
-  
-  tabela.addEventListener('click', (event) => {
-    if (event.target.classList.contains("excluir")) {
-      let id = event.target.dataset.id;
-  
-      // Confirmar antes de excluir o item
-      if (confirm("Deseja excluir este item?")) {
-        excluirItem(id);
+  fetch("api/itens")
+    .then(resposta => resposta.json())
+    .then((data) => {
+      let tabela = document.querySelector("#tabela-itens tbody");
+      tabela.innerHTML = ""; // Limpar a tabela antes de preenchê-la novamente
+
+      for (let item of data) {
+        let tr = document.createElement('tr');
+
+        let tdId = document.createElement('td');
+        tdId.textContent = item.id;
+        let tdNome = document.createElement('td');
+        tdNome.textContent = item.nome;
+        let tdDisponivel = document.createElement('td');
+        tdDisponivel.textContent = item.disponivel <= 0 ? "Indisponível" : 'disponível';
+        let tdDataDeAquisicao = document.createElement('td');
+        tdDataDeAquisicao.textContent = formatarData(item["data-de-aquisicao"]);
+
+        let tdAcoes = document.createElement('td');
+        let botaoEditar = document.createElement('button');
+        botaoEditar.textContent = "Editar";
+        botaoEditar.classList.add("editar");
+        botaoEditar.dataset.id = item.id;
+        botaoEditar.dataset.nome = item.nome;
+        botaoEditar.dataset.disponivel = item.disponivel;
+        botaoEditar.dataset.datadeaquisicao = item["data-de-aquisicao"];
+        botaoEditar.addEventListener('click', editarItem);
+
+        let botaoExcluir = document.createElement('button');
+        botaoExcluir.textContent = "Excluir";
+        botaoExcluir.classList.add("excluir");
+        botaoExcluir.dataset.id = item.id;
+        botaoExcluir.addEventListener('click', excluirItem);
+
+        tdAcoes.appendChild(botaoEditar);
+        tdAcoes.appendChild(botaoExcluir);
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdNome);
+        tr.appendChild(tdDisponivel);
+        tr.appendChild(tdDataDeAquisicao);
+        tr.appendChild(tdAcoes);
+
+        tabela.appendChild(tr);
       }
-    }
-  });
-  
-  // Event listener para os botões de alterar
-  tabela.addEventListener('click', (event) => {
-    if (event.target.classList.contains("alterar")) {
-      let id = event.target.dataset.id;
-      let nome = event.target.dataset.nome;
-      let disponivel = event.target.dataset.disponivel;
-      let datadeaquisicao = event.target.dataset.datadeaquisicao;
-  
-      // Preencher o formulário com os dados do item selecionado
-      document.querySelector("#id").value = id;
-      document.querySelector("#nome").value = nome;
-      document.querySelector("#disponivel").value = disponivel;
-      document.querySelector("#datadeaquisicao").value = datadeaquisicao;
-      document.querySelector('button').textContent = "Alterar";
-    }
-  });  
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// Função para editar um item
+function editarItem(event) {
+  event.preventDefault();
+
+  let form = document.querySelector("#cadastro");
+  let id = event.target.dataset.id;
+  let nome = event.target.dataset.nome;
+  let disponivel = event.target.dataset.disponivel;
+  let dataDeAquisicao = event.target.dataset.datadeaquisicao;
+
+  form.id.value = id;
+  form.nome.value = nome;
+  form.disponivel.value = disponivel;
+  form.datadeaquisicao.value = dataDeAquisicao;
+}
+
+// Função para excluir um item
+function excluirItem(event) {
+  event.preventDefault();
+
+  let id = event.target.dataset.id;
+
+  fetch(`api/itens/${id}`, { method: 'DELETE' })
+    .then(() => {
+      listarItens();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// Função para cadastrar um novo item
+function criarItem(event) {
+  event.preventDefault();
+
+  let form = document.querySelector("#cadastro");
+  let id = form.id.value;
+  let nome = form.nome.value;
+  let disponivel = form.disponivel.value;
+  let dataDeAquisicao = form.datadeaquisicao.value;
+
+  let metodo = id ? 'PUT' : 'POST';
+  let url = id ? `api/itens/${id}` : 'api/itens';
+
+  let item = {
+    nome: nome,
+    disponivel: disponivel,
+    "data-de-aquisicao": dataDeAquisicao
+  };
+
+  fetch(url, {
+    method: metodo,
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(item)
+  })
+    .then(() => {
+      form.reset();
+      listarItens();
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+// Evento de submit do formulário
+let form = document.querySelector("#cadastro");
+form.addEventListener('submit', criarItem);
+
+// Listar os itens ao carregar a página
+listarItens();
