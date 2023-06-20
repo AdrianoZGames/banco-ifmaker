@@ -18,22 +18,26 @@ async function getUsuarios(req: Request, res: Response) {
 }
 
 async function criarUsuarios(req: Request, res: Response) {
-    const { nome, senha } = req.body
+    const { nome,senha,email,cpf,telefone} = req.body
 
-    if (!nome || !senha) {
+    if (!nome || !senha  ) {
         return res.status(400).json({ error: 'data is missing' })
     }
 
     const usuario: Usuario = {
         nome,
         senha,
+        email,
+        cpf,
+        telefone
+
     }
 
     try {
         const connection = await criarConexao()
 
-        const consulta = 'INSERT INTO usuarios (nome, senha) VALUES (?,?)'
-        await connection.query(consulta, [usuario.nome, usuario.senha])
+        const consulta = 'INSERT INTO usuarios (nome,senha,email,cpf,telefone) VALUES (?,?,?,?,?)'
+        await connection.query(consulta, [usuario.nome, usuario.senha,usuario.email,usuario.cpf,usuario.telefone])
 
         connection.end()
 
@@ -84,6 +88,7 @@ async function apagarUsuarios(req: Request, res: Response) {
 
         res.status(200).json({ message: 'User removed succesfully!' })
     } catch (error) {
+        // console.log(error)
         return res.status(500).json({ message: error })
     }
 }

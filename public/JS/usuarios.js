@@ -100,13 +100,13 @@ form.addEventListener('submit', (event) => {
     if (document.querySelector('button').textContent == 'Alterar') {
         return
     }
-    let usuario = document.querySelector('#usuario').value
+    let nome = document.querySelector('#usuario').value
     let senha = document.querySelector('#senha').value
     let email = document.querySelector('#email').value
     let cpf = document.querySelector('#cpf').value
     let telefone = document.querySelector('#telefone').value
     let pessoa = {
-        usuario,
+        nome,
         senha,
         email,
         cpf,
@@ -123,4 +123,5 @@ form.addEventListener('submit', (event) => {
         //Quais são os dados
         body: JSON.stringify(pessoa),
     }).then((response) => response.json())
+    .finally(()=>window.location.reload())
 })
