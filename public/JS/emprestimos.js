@@ -164,7 +164,7 @@ function criarListagemDinamica() {
         tr.appendChild(dataDeDevolucaoTd)
 
         const statusTd = document.createElement('td')
-        statusTd.textContent = item.status > 0 ? 'Devolvido' : 'Pendente'
+        statusTd.textContent = item.status > 0 ? 'Pendente' : 'Devolvido'
         tr.appendChild(statusTd)
 
         const acoesTd = document.createElement('td')
@@ -187,7 +187,12 @@ function criarListagemDinamica() {
             .split('T')[0]
 
         buttonEditar.addEventListener('click', () => {
-            abrirModalEdicao(dataFormatadaEmprestimo, dataFormatadaDevolucao)
+            abrirModalEdicao(
+                dataFormatadaEmprestimo,
+                dataFormatadaDevolucao,
+                item.id,
+                item.status
+            )
         })
         buttonExcluir.addEventListener('click', () => {
             abrirModalExclusao(item.id)
@@ -261,13 +266,20 @@ window.addEventListener('click', function (event) {
 })
 
 // Função para abrir o modal de edição
-function abrirModalEdicao(dataEmprestimo, dataDevolucao) {
+function abrirModalEdicao(dataEmprestimo, dataDevolucao, id, status) {
     const dataEmprestimoEdicao = document.getElementById('dataEmprestimoEdicao')
     const dataDevolucaoEdicao = document.getElementById('dataDevolucaoEdicao')
 
     // Preencher os campos com os valores existentes
+    stageData.emprestimoId = id
     dataEmprestimoEdicao.value = dataEmprestimo
     dataDevolucaoEdicao.value = dataDevolucao
+
+    if (!status) {
+        setStatusDevolvido()
+    } else {
+        setStatusPendente()
+    }
 
     $('#modal-edicao').show()
 }
@@ -275,10 +287,11 @@ function abrirModalEdicao(dataEmprestimo, dataDevolucao) {
 // Função para fechar o modal de edição
 function fecharModalEdicao() {
     $('#modal-edicao').hide()
+    stageData.emprestimoId = null
 }
 
 // Função para salvar as informações editadas
-function salvarInformacoesEdicao() {
+async function salvarInformacoesEdicao() {
     const dataEmprestimoEdicao = document.getElementById(
         'dataEmprestimoEdicao'
     ).value
@@ -288,8 +301,27 @@ function salvarInformacoesEdicao() {
 
     // Faça o que for necessário com as informações editadas (enviar para a API, etc.)
 
-    // Fechar o modal após salvar as informações
-    fecharModalEdicao()
+    let emprestimo = {
+        dataDeEmprestimo: dataEmprestimoEdicao,
+        dataDeDevolucao: dataDevolucaoEdicao,
+        status: stageData.emprestimoSituacao,
+    }
+
+    const resposta = await fetch(`/api/emprestimos/${stageData.emprestimoId}`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(emprestimo),
+    })
+
+    if (resposta.status == 200) {
+        window.location.reload()
+    }
+    if (resposta.status != 200) {
+        alert('Internal Error!')
+    }
 }
 
 // Event listeners
@@ -319,8 +351,6 @@ function fecharModalExclusao() {
 
 // Função para confirmar a exclusão
 async function confirmarExclusao() {
-    // Lógica para a exclusão do item (enviar para a API, etc.)
-
     const resposta = await fetch(`/api/emprestimos/${stageData.emprestimoId}`, {
         method: 'DELETE',
         headers: {
