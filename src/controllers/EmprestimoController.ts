@@ -1,4 +1,4 @@
-import e, { Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { criarConexao } from '../database'
 import { Emprestimo } from '../models/Emprestimo'
 

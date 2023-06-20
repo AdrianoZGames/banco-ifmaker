@@ -1,7 +1,6 @@
 fetch('api/usuarios')
     .then((resposta) => resposta.json())
     .then((data) => {
-        // let pessoas = document.querySelector('#pessoas');
         let tabela = document.querySelector('#tabela')
         for (let item of data) {
             let tr = document.createElement('tr')
@@ -34,7 +33,7 @@ fetch('api/usuarios')
                 fetch('api/usuarios' + '/' + item.id, {
                     method: 'DELETE',
                 }).finally(() => {
-                    // window.location.reload();
+                    window.location.reload()
                 })
             })
 
@@ -70,17 +69,16 @@ fetch('api/usuarios')
                         senha,
                         email,
                         cpf,
-                        telefone
+                        telefone,
                     }
                     fetch('api/usuarios' + '/' + item.id, {
-                        
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(pessoaUpdate),
                     }).finally(() => {
-                         window.location.reload();
+                        window.location.reload()
                     })
                 })
             })
@@ -111,9 +109,9 @@ form.addEventListener('submit', (event) => {
         senha,
         email,
         cpf,
-        telefone
+        telefone,
     }
-    //console.log(pessoa)
+
     fetch('api/usuarios', {
         //Método
         method: 'POST',
@@ -123,6 +121,7 @@ form.addEventListener('submit', (event) => {
         },
         //Quais são os dados
         body: JSON.stringify(pessoa),
-    }).then((response) => response.json())
-    .finally(()=>window.location.reload())
+    })
+        .then((response) => response.json())
+        .finally(() => window.location.reload())
 })

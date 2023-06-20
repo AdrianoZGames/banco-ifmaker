@@ -30,13 +30,7 @@ async function inicia() {
     criarListagemDinamica()
 }
 
-// Função que será acionada pelo evento de clique no botão "Editar"
 
-function emprestarItem(value) {
-    // Lógica para editar o item selecionado
-    stageData.itemId = value
-    $('.tabela-centralizada').toggle()
-}
 
 // Função para criar a listagem dinâmica
 function criarListagemDinamica() {
@@ -214,6 +208,7 @@ function abrirModalEmprestimo() {
     $('#modal-emprestimo').show()
 }
 
+
 // Função para fechar o modal Empréstimos
 function fecharModal() {
     $('#modal-emprestimo').hide()
@@ -266,6 +261,10 @@ window.addEventListener('click', function (event) {
     }
 })
 
+function emprestarItem(value) {
+    stageData.itemId = value
+    $('.tabela-centralizada').toggle()
+}
 // Função para abrir o modal de edição
 function abrirModalEdicao(dataEmprestimo, dataDevolucao, id, status, id_item) {
     const dataEmprestimoEdicao = document.getElementById('dataEmprestimoEdicao')

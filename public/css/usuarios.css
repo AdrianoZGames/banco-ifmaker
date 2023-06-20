@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: url(https://i.imgur.com/EzmzqvD.jpg);
+    background-image: url('https://i.imgur.com/EzmzqvD.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
@@ -20,15 +20,24 @@ body {
 }
 
 .as {
+    width: calc(100% - 200px);
+    margin: 0 auto;
     background-color: #ffffff80;
     padding: 30px;
     border-radius: 4%;
     box-shadow: 3px 3px 1px 0px #00000070;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: rgb(29, 29, 137);
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 10px;
 }
 
 .oi input {
@@ -50,6 +59,8 @@ h1 {
     padding-top: 13px;
     margin-top: 5%;
     margin-bottom: 5%;
+    background-color: #ffffff80;
+    padding: 40px;
 }
 .oi input:focus {
     border-bottom: 2px solid #44a4;
@@ -57,17 +68,8 @@ h1 {
 .oi label {
     color: black;
     pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
     margin-top: 0, 5px;
     transition: all 0.3s ease-out;
-}
-
-.oi input:focus + label {
-    font-size: 13px;
-    margin-top: 0;
-    color: #44a4;
 }
 
 button {
@@ -121,9 +123,17 @@ button:hover {
     flex-direction: column;
     width: 50vw;
 }
+.tabe {
+    width: 100%;
+    margin-top: 100px;
+}
 .tabela {
     border: 1px solid black;
     min-width: 50vw;
+    background-color: rgb(214, 255, 253);
+    /* margin-bottom: 100px; */
+    margin: 0 auto 400px auto;
+    width: calc(100% - 60vw);
 }
 .tabela thead {
     background-color: rgb(10, 10, 74);
@@ -163,7 +173,6 @@ button {
     background-color: aquamarine;
     color: white;
     font-size: 0.8em;
-    /* margin: 0px 15px; */
     padding: 15px 30px;
 }
 form {
